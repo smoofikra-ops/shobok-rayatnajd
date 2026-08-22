@@ -11,18 +11,18 @@ export function WhyRayatNajd({ locale }: { locale: string }) {
   const icons = [Award, FileCheck, Sliders, Users, Layers];
 
   return (
-    <section className="py-12 md:py-16 bg-white border-t border-gray-100">
+    <section className="py-12 md:py-16 bg-transparent">
       <Container>
         {/* Header */}
         <div className="text-center max-w-2xl mx-auto mb-10">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#B56D2A]/10 text-[#7C3E1D] text-xs font-bold mb-2">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#B56D2A]/10 text-[#7C3E1D] text-xs font-bold mb-2 border border-[#B56D2A]/20 backdrop-blur-sm">
             <Award className="w-3.5 h-3.5" />
             <span>{isEn ? "Proven Experience" : "خبرة وجودة معتمدة"}</span>
           </div>
           <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 mb-2">
             {dict.whyUs.title}
           </h2>
-          <p className="text-sm sm:text-base text-gray-600">
+          <p className="text-sm sm:text-base text-gray-700 font-medium">
             {dict.whyUs.subtitle}
           </p>
         </div>
@@ -36,7 +36,7 @@ export function WhyRayatNajd({ locale }: { locale: string }) {
             return (
               <div
                 key={idx}
-                className={`flex items-start gap-4 p-5 sm:p-6 rounded-2xl border border-gray-200/90 bg-gradient-to-br from-white via-amber-50/20 to-amber-100/10 hover:border-[#B56D2A]/40 hover:shadow-md transition-all duration-300 ${
+                className={`flex items-start gap-4 p-5 sm:p-6 rounded-2xl border border-amber-900/12 bg-white/85 sm:bg-white/90 backdrop-blur-sm sm:backdrop-blur-md shadow-sm hover:bg-white hover:border-[#B56D2A]/50 hover:shadow-lg transition-all duration-300 ${
                   isFullSpanOnDesktop ? "sm:col-span-2 lg:col-span-2" : ""
                 }`}
               >

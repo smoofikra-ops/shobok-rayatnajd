@@ -1,7 +1,7 @@
 import { Container } from "@/components/ui/container";
 import { siteConfig } from "@/config/site";
 import Link from "next/link";
-import { Phone, MessagesSquare, ArrowLeft } from "lucide-react";
+import { Phone, MessagesSquare, ArrowLeft, Heart } from "lucide-react";
 import { getDictionary } from "@/lib/dictionary";
 
 export function Footer({ locale }: { locale: string }) {
@@ -9,7 +9,10 @@ export function Footer({ locale }: { locale: string }) {
   const isEn = locale === "en";
 
   return (
-    <footer className="bg-gray-900 text-gray-300 pt-16 pb-8 border-t border-gray-800">
+    <footer className="relative bg-gray-900 text-gray-300 pt-16 pb-8 border-t border-gray-800 overflow-hidden">
+      {/* Ambient Top Blend from Page Canvas */}
+      <div className="absolute top-0 left-0 right-0 h-12 bg-gradient-to-b from-black/20 to-transparent pointer-events-none" />
+      
       <Container>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16 mb-12">
           
@@ -75,8 +78,22 @@ export function Footer({ locale }: { locale: string }) {
           </div>
         </div>
 
-        <div className="pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-500">
+        <div className="pt-8 border-t border-gray-800 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-gray-400">
           <p>© {new Date().getFullYear()} {dict.footer.company}. {isEn ? "All rights reserved." : "جميع الحقوق محفوظة."}</p>
+
+          <div className="flex items-center gap-1.5 text-gray-300">
+            <span>{isEn ? "Created with" : "صُنع بـ"}</span>
+            <Heart className="w-3.5 h-3.5 text-emerald-400 fill-emerald-400 animate-pulse inline-block" />
+            <span>{isEn ? "by" : "بواسطة"}</span>
+            <a
+              href="https://www.nmolabs.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-bold text-emerald-400 hover:text-emerald-300 transition-colors underline-offset-4 hover:underline"
+            >
+              NMOLABS (Nomulabs)
+            </a>
+          </div>
         </div>
       </Container>
     </footer>

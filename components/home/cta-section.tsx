@@ -11,14 +11,14 @@ export function CtaSection({ locale }: { locale: string }) {
   const isEn = locale === "en";
 
   return (
-    <section className="py-12 md:py-16 bg-white">
+    <section className="py-12 md:py-16 bg-transparent">
       <Container>
-        <div className="bg-gradient-to-br from-[#2D160E] via-[#4A281A] to-[#1F0E09] rounded-3xl p-6 sm:p-10 md:p-14 text-center max-w-4xl mx-auto shadow-2xl relative overflow-hidden text-white border border-amber-900/30">
+        <div className="bg-gradient-to-br from-[#2D160E]/95 via-[#4A281A]/95 to-[#1F0E09]/95 backdrop-blur-md rounded-3xl p-6 sm:p-10 md:p-14 text-center max-w-4xl mx-auto shadow-2xl relative overflow-hidden text-white border border-amber-700/30">
           <div className="absolute top-0 right-0 -mt-16 -mr-16 w-64 h-64 bg-[#B56D2A]/20 rounded-full blur-3xl pointer-events-none"></div>
           <div className="absolute bottom-0 left-0 -mb-16 -ml-16 w-64 h-64 bg-[#B9A174]/15 rounded-full blur-3xl pointer-events-none"></div>
           
           <div className="relative z-10">
-            <span className="inline-block py-1 px-3.5 rounded-full bg-white/10 text-[#f5d77f] text-xs font-bold mb-4 border border-white/10">
+            <span className="inline-block py-1 px-3.5 rounded-full bg-white/10 text-[#f5d77f] text-xs font-bold mb-4 border border-white/10 backdrop-blur-sm">
               {isEn ? "Direct Coordination & Fast Quotes" : "تنسيق مباشر وعروض أسعار سريعة"}
             </span>
 

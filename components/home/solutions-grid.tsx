@@ -21,11 +21,11 @@ export function SolutionsGrid({ locale }: { locale: string }) {
   ];
 
   return (
-    <section className="py-12 md:py-16 bg-white border-t border-gray-100">
+    <section className="py-12 md:py-16 bg-transparent">
       <Container>
         {/* Header */}
         <div className="text-center max-w-xl mx-auto mb-8">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gray-100 text-gray-800 text-xs font-bold mb-2">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#B56D2A]/10 text-[#7C3E1D] text-xs font-bold mb-2 border border-[#B56D2A]/20 backdrop-blur-sm">
             <Sparkles className="w-3.5 h-3.5 text-[#B56D2A]" />
             <span>{dict.solutions.title}</span>
           </div>
@@ -45,7 +45,7 @@ export function SolutionsGrid({ locale }: { locale: string }) {
               <Link
                 key={idx}
                 href={`/${locale}/services/${item.slug}`}
-                className={`group flex flex-col items-center justify-center text-center p-3 sm:p-4 rounded-xl border border-gray-200/80 bg-gradient-to-b from-white to-gray-50/60 hover:from-amber-50/30 hover:to-amber-100/20 hover:border-amber-600/30 hover:shadow-md active:scale-95 transition-all duration-200 min-h-[95px] sm:min-h-[110px] ${
+                className={`group flex flex-col items-center justify-center text-center p-3 sm:p-4 rounded-xl border border-amber-900/12 bg-white/85 sm:bg-white/90 backdrop-blur-sm sm:backdrop-blur-md shadow-sm hover:bg-white hover:border-amber-600/40 hover:shadow-lg active:scale-95 transition-all duration-200 min-h-[95px] sm:min-h-[110px] ${
                   isLastTwoOnMobile ? "col-span-1.5 sm:col-span-1" : ""
                 }`}
               >

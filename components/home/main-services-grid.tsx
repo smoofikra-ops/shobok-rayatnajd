@@ -17,18 +17,18 @@ export function MainServicesGrid({ locale }: { locale: string }) {
     .filter(Boolean);
 
   return (
-    <section className="py-12 md:py-16 bg-gradient-to-b from-amber-50/40 via-white to-white overflow-hidden">
+    <section className="py-12 md:py-16 bg-transparent overflow-hidden">
       <Container>
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-8 md:mb-12">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#B56D2A]/10 text-[#7C3E1D] text-xs font-bold mb-3 border border-[#B56D2A]/20">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#B56D2A]/10 text-[#7C3E1D] text-xs font-bold mb-3 border border-[#B56D2A]/20 backdrop-blur-sm">
             <Sparkles className="w-3.5 h-3.5" />
             <span>{dict.services.badge}</span>
           </div>
           <h2 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-gray-900 tracking-tight mb-2">
             {dict.services.title}
           </h2>
-          <p className="text-xs sm:text-sm text-gray-600">
+          <p className="text-xs sm:text-sm text-gray-700 font-medium">
             {dict.services.subtitle}
           </p>
         </div>
@@ -45,7 +45,7 @@ export function MainServicesGrid({ locale }: { locale: string }) {
               <Link
                 key={service.slug}
                 href={`/${locale}/services/${service.slug}`}
-                className={`service-pulse-card service-card-${idx} group relative flex flex-col justify-between p-4 sm:p-5 md:p-6 rounded-2xl border border-amber-900/10 bg-gradient-to-br from-[#4A281A]/[0.03] via-[#B56D2A]/[0.05] to-[#B9A174]/[0.08] hover:from-[#4A281A]/[0.08] hover:via-[#B56D2A]/[0.1] hover:to-[#B9A174]/[0.15] hover:border-amber-700/30 hover:shadow-lg transition-all duration-300 active:scale-[0.98] min-h-[170px] sm:min-h-[210px] md:min-h-[230px]`}
+                className={`service-pulse-card service-card-${idx} group relative flex flex-col justify-between p-4 sm:p-5 md:p-6 rounded-2xl border border-amber-900/15 bg-white/85 sm:bg-white/90 backdrop-blur-sm sm:backdrop-blur-md shadow-sm hover:from-white hover:to-amber-50/50 hover:border-amber-700/40 hover:shadow-xl transition-all duration-300 active:scale-[0.98] min-h-[170px] sm:min-h-[210px] md:min-h-[230px]`}
               >
                 {/* Top: Icon + Number */}
                 <div className="flex items-center justify-between gap-2 mb-3">
