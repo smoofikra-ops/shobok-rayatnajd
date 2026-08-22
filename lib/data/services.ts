@@ -27,7 +27,7 @@ export const servicesData: ServiceData[] = [
     descAr: "حلول لحماية وتحديد المواقع والمنشآت حسب متطلبات المشروع والمواصفات الأمنية.",
     descEn: "Solutions for securing and defining sites and facilities based on project and security requirements.",
     icon: Shield,
-    image: "https://images.unsplash.com/photo-1590402494682-cd3fb53b1f70?auto=format&fit=crop&w=800&q=80",
+    image: "https://nmolabs-cdn.b-cdn.net/shobok-rayatnajd/services/security-fence/Security-fen.jpeg",
     isMain: true,
     scopeAr: "توريد وتركيب الشبوك الأمنية المقاومة للقص والتسلق، مع خيارات الأسلاك الشائكة والشفرات الحادة ودعامات التثبيت الخرسانية والمعدنية.",
     scopeEn: "Supply and installation of anti-cut and anti-climb security fences, with barbed wire, razor coils, and reinforced concrete/metal footing options.",
