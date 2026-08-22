@@ -5,6 +5,7 @@ import { RequestQuoteForm } from "@/components/quote/request-quote-form";
 import { FileText, PhoneCall, MessagesSquare, Clock, ShieldCheck, Award } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import { Suspense } from "react";
+import { getDirectWhatsAppUrl } from "@/lib/whatsapp";
 
 export const metadata: Metadata = {
   title: "طلب عرض سعر | مؤسسة رايات نجد للمقاولات",
@@ -65,7 +66,11 @@ export default function RequestQuotePage({ params: { locale } }: { params: { loc
                 </p>
 
                 <a
-                  href={`https://wa.me/${siteConfig.contact.whatsapp}?text=${encodeURIComponent("السلام عليكم، نود إرسال مخططات وجداول كميات لمشروع عاجل.")}`}
+                  href={getDirectWhatsAppUrl({
+                    locale,
+                    source: isEn ? "Request Quote Page (Urgent Drawings)" : "صفحة طلب عرض السعر (مخططات عاجلة)",
+                    customTopic: isEn ? "Sending Urgent Drawings & BOQ via WhatsApp" : "إرسال مخططات وجداول كميات عاجلة لمشروع"
+                  })}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full bg-[#25D366] text-white p-3.5 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 hover:bg-[#128C7E] transition-all shadow-md"

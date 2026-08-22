@@ -5,6 +5,7 @@ import { siteConfig } from "@/config/site";
 import Link from "next/link";
 import { MessagesSquare, ArrowLeft, PhoneCall } from "lucide-react";
 import { getDictionary } from "@/lib/dictionary";
+import { getDirectWhatsAppUrl } from "@/lib/whatsapp";
 
 export function HeroSection({ locale }: { locale: string }) {
   const dict = getDictionary(locale);
@@ -68,7 +69,11 @@ export function HeroSection({ locale }: { locale: string }) {
           </Link>
 
           <a 
-            href={`https://wa.me/${siteConfig.contact.whatsapp}?text=${encodeURIComponent("السلام عليكم، أود الاستفسار عن خدمات وتوريد الشبوك لمشروعنا.")}`} 
+            href={getDirectWhatsAppUrl({
+              locale,
+              source: isEn ? "Hero Section (Homepage)" : "قسم الهيرو - الصفحة الرئيسية",
+              customTopic: isEn ? "Fencing supply and installation consultation" : "استفسار وطلب تسعير شبوك ومقاولات"
+            })} 
             target="_blank"
             rel="noopener noreferrer"
             className="w-full sm:w-auto bg-gradient-to-r from-[#075E54] to-[#128C7E] text-white px-7 py-3.5 rounded-xl font-bold hover:shadow-xl hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-300 flex items-center justify-center gap-2 shadow-lg text-sm sm:text-base" 

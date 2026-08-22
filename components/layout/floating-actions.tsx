@@ -2,6 +2,7 @@
 
 import { siteConfig } from "@/config/site";
 import { Phone, MessagesSquare } from "lucide-react";
+import { getDirectWhatsAppUrl } from "@/lib/whatsapp";
 
 export function FloatingActions({ locale }: { locale: string }) {
   const isEn = locale === "en";
@@ -19,7 +20,13 @@ export function FloatingActions({ locale }: { locale: string }) {
         </span>
       </a>
       <a
-        href={`https://wa.me/${siteConfig.contact.whatsapp}?text=${encodeURIComponent("السلام عليكم، أرغب في الاستفسار عن توريد/تركيب الشبوك لمشروع.")}`}
+        href={getDirectWhatsAppUrl({ 
+          locale, 
+          source: isEn ? "Floating Quick Action" : "الزر العائم بالموقع",
+          customTopic: isEn ? "General Fencing & Projects Inquiry" : "استفسار سريع عن الشبوك والمشاريع"
+        })}
+        target="_blank"
+        rel="noopener noreferrer"
         className="w-14 h-14 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-lg shadow-[#25D366]/30 hover:bg-[#128C7E] hover:scale-110 transition-all duration-300 group relative"
         aria-label="WhatsApp"
       >

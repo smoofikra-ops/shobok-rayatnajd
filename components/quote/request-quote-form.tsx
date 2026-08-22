@@ -22,10 +22,10 @@ export function RequestQuoteForm({ locale }: { locale: string }) {
   });
 
   const [submitted, setSubmitted] = useState(false);
+  const [whatsappUrl, setWhatsappUrl] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
 
     // Prepare WhatsApp Message with formatted inquiry
     const selectedServiceObj = servicesData.find((s) => s.slug === formData.service);
@@ -33,7 +33,21 @@ export function RequestQuoteForm({ locale }: { locale: string }) {
       ? (isEn ? selectedServiceObj.titleEn : selectedServiceObj.titleAr)
       : formData.service || (isEn ? "General Fencing Inquiry" : "استفسار عام");
 
-    const message = `*طلب عرض سعر جديد - مؤسسة رايات نجد للمقاولات*
+    let message = "";
+    if (isEn) {
+      message = `*New Quote Request - Rayat Najd Website*
+🌐 *Source:* Online Quote Request Form (Official Website)
+----------------------------------
+👤 *Name / Organization:* ${formData.name}
+📱 *Phone Number:* ${formData.phone}
+📍 *City / Location:* ${formData.city || "Not specified"}
+🛠️ *Requested Service:* ${serviceName}
+⚙️ *Scope Type:* ${formData.scopeType}
+📏 *Quantities / Dimensions:* ${formData.quantity || "As per BOQ/drawings"}
+📝 *Additional Details:* ${formData.details || "None"}`;
+    } else {
+      message = `*طلب عرض سعر جديد - موقع رايات نجد الإلكتروني*
+🌐 *المصدر:* نموذج طلب عرض السعر بالموقع الرسمي
 ----------------------------------
 👤 *الاسم / الجهة:* ${formData.name}
 📱 *رقم الجوال:* ${formData.phone}
@@ -42,12 +56,15 @@ export function RequestQuoteForm({ locale }: { locale: string }) {
 ⚙️ *نوع النطاق:* ${formData.scopeType}
 📏 *الكميات / المقاسات:* ${formData.quantity || "حسب المخطط"}
 📝 *تفاصيل إضافية:* ${formData.details || "لا يوجد"}`;
+    }
 
-    const whatsappUrl = `https://wa.me/${siteConfig.contact.whatsapp}?text=${encodeURIComponent(message)}`;
+    const url = `https://wa.me/${siteConfig.contact.whatsapp}?text=${encodeURIComponent(message)}`;
+    setWhatsappUrl(url);
+    setSubmitted(true);
     
     // Automatically open WhatsApp after brief confirmation
     setTimeout(() => {
-      window.open(whatsappUrl, "_blank");
+      window.open(url, "_blank");
     }, 800);
   };
 
@@ -68,7 +85,7 @@ export function RequestQuoteForm({ locale }: { locale: string }) {
 
         <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
           <a
-            href={`https://wa.me/${siteConfig.contact.whatsapp}`}
+            href={whatsappUrl || `https://wa.me/${siteConfig.contact.whatsapp}`}
             target="_blank"
             rel="noopener noreferrer"
             className="w-full sm:w-auto bg-[#25D366] text-white px-7 py-3.5 rounded-xl font-bold text-sm flex items-center justify-center gap-2 hover:bg-[#128C7E] transition-all"

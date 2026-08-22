@@ -4,6 +4,7 @@ import { getDictionary } from "@/lib/dictionary";
 import { siteConfig } from "@/config/site";
 import Link from "next/link";
 import { Award, ShieldCheck, Target, Eye, CheckCircle2, FileText, MessagesSquare, PhoneCall, Building2, Trees } from "lucide-react";
+import { getDirectWhatsAppUrl } from "@/lib/whatsapp";
 
 export const metadata: Metadata = {
   title: "من نحن | مؤسسة رايات نجد للمقاولات",
@@ -172,8 +173,14 @@ export default function AboutPage({ params: { locale } }: { params: { locale: st
                 {dict.hero.quoteBtn}
               </Link>
               <a
-                href={`https://wa.me/${siteConfig.contact.whatsapp}`}
-                className="w-full sm:w-auto bg-[#25D366] text-white px-7 py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2"
+                href={getDirectWhatsAppUrl({
+                  locale,
+                  source: isEn ? "About Us Page" : "صفحة من نحن",
+                  customTopic: isEn ? "Contractor profile & project collaboration" : "الاطلاع على الملف التعريفي والتعاون في مشروع"
+                })}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto bg-[#25D366] text-white px-7 py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2 hover:bg-[#128C7E] transition-colors"
                 dir="ltr"
               >
                 <MessagesSquare className="w-4 h-4" />

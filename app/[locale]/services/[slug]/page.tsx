@@ -7,6 +7,7 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import { siteConfig } from "@/config/site";
 import { type Metadata } from "next";
+import { getDirectWhatsAppUrl } from "@/lib/whatsapp";
 
 interface Props {
   params: { slug: string; locale: string };
@@ -97,7 +98,12 @@ export default function ServicePage({ params: { slug, locale } }: Props) {
                 </Link>
 
                 <a
-                  href={`https://wa.me/${siteConfig.contact.whatsapp}?text=${encodeURIComponent(`السلام عليكم، أود الاستفسار عن تفاصيل وطلب عرض سعر لخدمة: ${service.titleAr}`)}`}
+                  href={getDirectWhatsAppUrl({
+                    locale,
+                    source: isEn ? `Service Page: ${service.titleEn}` : `صفحة خدمة: ${service.titleAr}`,
+                    serviceTitle: isEn ? service.titleEn : service.titleAr,
+                    customTopic: isEn ? "Inquiring about specifications, pricing, and execution" : "الاستفسار عن المواصفات، عروض الأسعار، والتنفيذ"
+                  })}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="bg-gradient-to-r from-[#075E54] to-[#128C7E] text-white px-7 py-3.5 rounded-xl font-bold hover:shadow-xl hover:-translate-y-0.5 active:scale-95 transition-all text-sm sm:text-base flex items-center justify-center gap-2 shadow-md"
@@ -221,7 +227,12 @@ export default function ServicePage({ params: { slug, locale } }: Props) {
                   </Link>
 
                   <a
-                    href={`https://wa.me/${siteConfig.contact.whatsapp}?text=${encodeURIComponent(`السلام عليكم، أود تسعير خدمة: ${service.titleAr}`)}`}
+                    href={getDirectWhatsAppUrl({
+                      locale,
+                      source: isEn ? `Service Sidebar: ${service.titleEn}` : `الشريط الجانبي لخدمة: ${service.titleAr}`,
+                      serviceTitle: isEn ? service.titleEn : service.titleAr,
+                      customTopic: isEn ? "Quick quotation for service" : "تسعير وتنسيق فوري للخدمة"
+                    })}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-full bg-[#25D366] text-white p-3.5 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 hover:bg-[#128C7E] transition-all"

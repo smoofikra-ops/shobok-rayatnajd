@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Briefcase, Building2, CheckCircle2, ShieldCheck, FileSpreadsheet, MessagesSquare, PhoneCall, ArrowLeft, Warehouse, Tractor, Factory } from "lucide-react";
 import { servicesData } from "@/lib/data/services";
 import Image from "next/image";
+import { getDirectWhatsAppUrl } from "@/lib/whatsapp";
 
 export const metadata: Metadata = {
   title: "المشاريع ونطاق التنفيذ | مؤسسة رايات نجد للمقاولات",
@@ -177,10 +178,14 @@ export default function ProjectsPage({ params: { locale } }: { params: { locale:
                 <span>{dict.hero.quoteBtn}</span>
               </Link>
               <a
-                href={`https://wa.me/${siteConfig.contact.whatsapp}?text=${encodeURIComponent("السلام عليكم، نود إرسال جدول كميات/مخططات لمشروع لتسعيره.")}`}
+                href={getDirectWhatsAppUrl({
+                  locale,
+                  source: isEn ? "Projects & Execution Scope Page" : "صفحة المشاريع ونطاق التنفيذ",
+                  customTopic: isEn ? "Sending BOQ and Engineering Drawings for Pricing" : "إرسال جدول كميات ومخططات هندسية لتسعيرها"
+                })}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full sm:w-auto bg-[#25D366] text-white px-8 py-3.5 rounded-xl font-bold text-sm sm:text-base flex items-center justify-center gap-2 shadow-lg"
+                className="w-full sm:w-auto bg-[#25D366] hover:bg-[#128C7E] text-white px-8 py-3.5 rounded-xl font-bold text-sm sm:text-base flex items-center justify-center gap-2 shadow-lg transition-colors"
                 dir="ltr"
               >
                 <MessagesSquare className="w-4 h-4" />

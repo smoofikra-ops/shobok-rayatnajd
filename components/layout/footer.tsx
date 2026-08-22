@@ -3,6 +3,7 @@ import { siteConfig } from "@/config/site";
 import Link from "next/link";
 import { Phone, MessagesSquare, Heart, ShieldCheck, Clock, MapPin } from "lucide-react";
 import { getDictionary } from "@/lib/dictionary";
+import { getDirectWhatsAppUrl } from "@/lib/whatsapp";
 
 export function Footer({ locale }: { locale: string }) {
   const dict = getDictionary(locale);
@@ -158,7 +159,17 @@ export function Footer({ locale }: { locale: string }) {
                 <span className="w-9 h-9 rounded-xl bg-white/10 border border-white/10 flex items-center justify-center shrink-0 group-hover:border-[#25D366] group-hover:bg-[#25D366]/20 transition-all">
                   <MessagesSquare className="w-4 h-4 text-[#25D366]" />
                 </span>
-                <a href={`https://wa.me/${siteConfig.contact.whatsapp}`} className="hover:text-white transition-colors font-medium" dir="ltr">
+                <a 
+                  href={getDirectWhatsAppUrl({
+                    locale,
+                    source: isEn ? "Website Footer" : "فوتر الموقع الإلكتروني",
+                    customTopic: isEn ? "Direct messaging & pricing request" : "محادثة مباشرة واستفسار عن الأسعار"
+                  })} 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-[#25D366] transition-colors font-medium" 
+                  dir="ltr"
+                >
                   {siteConfig.contact.phoneDisplay}
                 </a>
               </li>

@@ -5,6 +5,7 @@ import { Container } from "@/components/ui/container";
 import { siteConfig } from "@/config/site";
 import { getDictionary } from "@/lib/dictionary";
 import { MessagesSquare, FileText, PhoneCall } from "lucide-react";
+import { getDirectWhatsAppUrl } from "@/lib/whatsapp";
 
 export function CtaSection({ locale }: { locale: string }) {
   const dict = getDictionary(locale);
@@ -40,7 +41,11 @@ export function CtaSection({ locale }: { locale: string }) {
               </Link>
 
               <a 
-                href={`https://wa.me/${siteConfig.contact.whatsapp}?text=${encodeURIComponent("السلام عليكم، أود طلب عرض سعر وتنسيق لمشروع.")}`} 
+                href={getDirectWhatsAppUrl({
+                  locale,
+                  source: isEn ? "Bottom Call to Action" : "قسم الدعوة للتواصل بالصفحة الرئيسية",
+                  customTopic: isEn ? "Request quote and project coordination" : "طلب عرض سعر وتنسيق هندسي لمشروع"
+                })} 
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full sm:w-auto bg-gradient-to-r from-[#075E54] to-[#128C7E] text-white px-7 py-3.5 rounded-xl font-bold hover:shadow-xl hover:-translate-y-0.5 active:scale-95 transition-all duration-300 flex items-center justify-center gap-2 text-sm sm:text-base shadow-lg" 

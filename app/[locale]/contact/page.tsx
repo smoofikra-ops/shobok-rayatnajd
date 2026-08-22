@@ -4,6 +4,7 @@ import { siteConfig } from "@/config/site";
 import { PhoneCall, MessagesSquare, Clock, MapPin, Building2, ShieldCheck, Mail } from "lucide-react";
 import Link from "next/link";
 import { getDictionary } from "@/lib/dictionary";
+import { getDirectWhatsAppUrl } from "@/lib/whatsapp";
 
 export const metadata: Metadata = {
   title: "اتصل بنا | مؤسسة رايات نجد للمقاولات",
@@ -78,14 +79,24 @@ export default function ContactPage({ params: { locale } }: { params: { locale: 
                 {dict.contact.whatsappChatDesc}
               </p>
               <a
-                href={`https://wa.me/${siteConfig.contact.whatsapp}`}
+                href={getDirectWhatsAppUrl({
+                  locale,
+                  source: isEn ? "Contact Us Page (Direct Number)" : "صفحة اتصل بنا (الرقم المباشر)",
+                  customTopic: isEn ? "Customer Inquiry & Technical Support" : "استفسار عميل ودعم فني"
+                })}
                 dir="ltr"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-2xl font-extrabold text-[#128C7E] hover:underline pt-2 block"
               >
                 {siteConfig.contact.phoneDisplay}
               </a>
               <a
-                href={`https://wa.me/${siteConfig.contact.whatsapp}?text=${encodeURIComponent("السلام عليكم، أرغب في الاستفسار عن توريد/تركيب الشبوك لمشروع.")}`}
+                href={getDirectWhatsAppUrl({
+                  locale,
+                  source: isEn ? "Contact Us Page (Chat Button)" : "صفحة اتصل بنا (زر بدء المحادثة)",
+                  customTopic: isEn ? "Project pricing and coordination" : "تسعير مشروع وتنسيق ميداني"
+                })}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full bg-[#25D366] hover:bg-[#128C7E] text-white py-3.5 px-6 rounded-xl font-bold text-sm mt-2 block transition-colors text-center shadow-sm"
