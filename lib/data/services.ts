@@ -86,7 +86,7 @@ export const servicesData: ServiceData[] = [
     descAr: "حل شامل لتنفيذ المشروع بالكامل من التوريد حتى التسليم النهائي.",
     descEn: "A comprehensive solution for full project execution, from supply to final delivery.",
     icon: CheckCircle2,
-    image: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=800&q=80",
+    image: "https://nmolabs-cdn.b-cdn.net/shobok-rayatnajd/services/supply-install/supply-install.jpeg",
   },
   {
     slug: "supply-only",
@@ -95,7 +95,7 @@ export const servicesData: ServiceData[] = [
     descAr: "توفير المواد حسب المواصفات والكميات المطلوبة للمشروع.",
     descEn: "Providing materials according to the required specifications and quantities for the project.",
     icon: CheckCircle2,
-    image: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80",
+    image: "https://nmolabs-cdn.b-cdn.net/shobok-rayatnajd/services/supply-install/supply-only.jpeg",
   },
   {
     slug: "install-only",
@@ -104,6 +104,6 @@ export const servicesData: ServiceData[] = [
     descAr: "تنفيذ الأعمال بواسطة فريق متخصص بناءً على المواد المتوفرة.",
     descEn: "Execution of works by a specialized team based on available materials.",
     icon: Hammer,
-    image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=800&q=80",
+    image: "https://nmolabs-cdn.b-cdn.net/shobok-rayatnajd/services/supply-install/install-only.jpeg",
   }
 ];
