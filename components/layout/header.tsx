@@ -8,6 +8,7 @@ import { Container } from "@/components/ui/container";
 import { siteConfig } from "@/config/site";
 import { getDictionary } from "@/lib/dictionary";
 import { LanguageSwitcher } from "@/components/language/language-switcher";
+import { AnnouncementBanner } from "@/components/layout/announcement-banner";
 
 export function Header({ locale }: { locale: string }) {
   const pathname = usePathname();
@@ -42,11 +43,15 @@ export function Header({ locale }: { locale: string }) {
   return (
     <header 
       className={`sticky top-0 z-50 w-full transition-all duration-300 ${
-        scrolled ? "bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100 py-3" : "bg-white py-4"
+        scrolled ? "bg-white/95 backdrop-blur-md shadow-md border-b border-gray-100" : "bg-white"
       }`}
     >
-      <Container>
-        <div className="flex items-center justify-between gap-4">
+      {/* Sticky Advertisement / Capabilities Ticker Banner */}
+      <AnnouncementBanner locale={locale} />
+
+      <div className={`transition-all duration-300 ${scrolled ? "py-2.5" : "py-3.5"}`}>
+        <Container>
+          <div className="flex items-center justify-between gap-4">
           
           {/* Logo - Always on the "start" side based on direction */}
           <Link href={`/${locale}`} className="flex items-center gap-2 group shrink-0">
@@ -106,6 +111,7 @@ export function Header({ locale }: { locale: string }) {
           </div>
         </div>
       </Container>
+      </div>
 
       {/* Mobile Drawer */}
       {isMenuOpen && (

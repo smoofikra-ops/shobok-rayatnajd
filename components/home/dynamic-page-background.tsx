@@ -277,9 +277,9 @@ export function DynamicPageBackground({ containerRef }: DynamicPageBackgroundPro
         style={{ zIndex: 8 }}
       />
 
-      {/* 4. Bottom Gradient Blend: Smooth transition into dark Footer */}
+      {/* 4. Bottom Gradient Blend: Smooth seamless transition into brand-colored dynamic Footer */}
       <div
-        className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-b from-transparent via-gray-900/60 to-gray-900 pointer-events-none"
+        className="absolute bottom-0 left-0 right-0 h-44 bg-gradient-to-b from-transparent via-[#2D160E]/50 to-[#1A0C07] pointer-events-none"
         style={{ zIndex: 8 }}
       />
     </div>
