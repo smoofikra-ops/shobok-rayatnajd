@@ -59,8 +59,21 @@ export default function HomePage() {
               animation-play-state: paused;
             }
             @keyframes marquee-rtl {
-              0% { transform: translateX(0); }
-              100% { transform: translateX(50%); }
+              0% { transform: translate3d(0, 0, 0); }
+              100% { transform: translate3d(50%, 0, 0); }
+            }
+            .marquee-card {
+              width: 85vw;
+            }
+            @media (min-width: 768px) {
+              .marquee-card {
+                width: calc((100vw - 3rem - 20px) / 2);
+              }
+            }
+            @media (min-width: 1024px) {
+              .marquee-card {
+                width: calc((min(100vw, 1280px) - 4rem - 40px) / 3);
+              }
             }
             @media (prefers-reduced-motion: reduce) {
               .marquee-track {
@@ -95,7 +108,7 @@ export default function HomePage() {
                   <Link
                     key={idx}
                     href={`/services/${item.slug}`}
-                    className="marquee-card group flex flex-col bg-white p-6 md:p-8 rounded-2xl border border-gray-100 hover:border-primary/50 hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] hover:-translate-y-1.5 hover:scale-[1.02] transition-all duration-300 h-[260px] md:h-[280px] w-[85vw] sm:w-[350px] lg:w-[380px] shrink-0 outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                    className="marquee-card group flex flex-col bg-white p-6 md:p-8 rounded-2xl border border-gray-100 hover:border-primary/50 hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] hover:-translate-y-1.5 hover:scale-[1.02] transition-all duration-300 h-[300px] md:h-[320px] shrink-0 outline-none focus-visible:ring-2 focus-visible:ring-primary"
                   >
                     <div className="w-12 h-12 bg-gray-50 rounded-xl flex items-center justify-center mb-5 group-hover:bg-primary group-hover:text-white transition-colors duration-300 text-primary">
                       <item.icon className="w-6 h-6 group-hover:scale-110 transition-transform duration-300" />
@@ -122,11 +135,11 @@ export default function HomePage() {
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Solutions */}
-            <div className="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm">
-              <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+            <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+              <h3 className="text-xl font-bold text-gray-900 mb-5 flex items-center gap-2">
                 <Shield className="w-5 h-5 text-primary" /> الحلول المتوفرة
               </h3>
-              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {["شبوك مجلفنة", "شبوك أمنية", "شبوك مزارع", "شبوك منشآت صناعية", "سياج للمشاريع والمواقع", "سياج حديدي", "مظلات", "هياكل هناجر للمستودعات"].map((sol, i) => (
                   <li key={i} className="flex items-center gap-2 text-sm text-gray-700 font-medium">
                     <span className="w-1.5 h-1.5 bg-primary rounded-full"></span> {sol}
@@ -136,11 +149,11 @@ export default function HomePage() {
             </div>
             
             {/* Sectors */}
-            <div className="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm">
-              <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+            <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+              <h3 className="text-xl font-bold text-gray-900 mb-5 flex items-center gap-2">
                 <Factory className="w-5 h-5 text-primary" /> القطاعات المستهدفة
               </h3>
-              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {["المشاريع الحكومية", "المنشآت والمشاريع الصناعية", "المشاريع الزراعية والمزارع", "المشاريع التجارية", "المواقع والمرافق", "المستودعات والمنشآت اللوجستية"].map((sector, i) => (
                   <li key={i} className="flex items-center gap-2 text-sm text-gray-700 font-medium">
                     <span className="w-1.5 h-1.5 bg-gray-300 rounded-full"></span> {sector}
@@ -155,10 +168,10 @@ export default function HomePage() {
       {/* 4. Trust & Process */}
       <section className="py-12 md:py-16">
         <Container>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+          <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
             {/* Why Us */}
-            <div>
-              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">لماذا رايات نجد؟</h2>
+            <div className="bg-white p-6 md:p-8 rounded-2xl border border-gray-100 shadow-sm">
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">لماذا رايات نجد؟</h2>
               <div className="space-y-4">
                 {[
                   "خبرة في إدارة وتنفيذ المشاريع منذ 2010.",
@@ -169,28 +182,28 @@ export default function HomePage() {
                 ].map((point, i) => (
                   <div key={i} className="flex items-start gap-3">
                     <CheckCircle2 className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-                    <p className="text-gray-700 text-sm md:text-base leading-relaxed">{point}</p>
+                    <p className="text-gray-700 text-sm leading-relaxed">{point}</p>
                   </div>
                 ))}
               </div>
             </div>
 
             {/* Process */}
-            <div>
-              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">كيف نبدأ مشروعك؟</h2>
-              <div className="space-y-6 relative before:absolute before:inset-y-0 before:right-3.5 before:w-0.5 before:bg-gray-100">
+            <div className="bg-white p-6 md:p-8 rounded-2xl border border-gray-100 shadow-sm">
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">كيف نبدأ مشروعك؟</h2>
+              <div className="space-y-5 relative before:absolute before:inset-y-0 before:right-3.5 before:w-0.5 before:bg-gray-100">
                 {[
                   { title: "استلام المتطلبات", desc: "نتعرف على نوع المشروع والموقع والخدمة المطلوبة." },
-                  { title: "مراجعة نطاق العمل", desc: "نراجع المواصفات والكميات والمخططات أو BOQ عند توفرها." },
+                  { title: "مراجعة نطاق العمل", desc: "نراجع المواصفات والكميات والمخططات أو BOQ." },
                   { title: "إعداد العرض", desc: "يتم إعداد العرض وفق النطاق والمتطلبات المتاحة." },
-                  { title: "التنسيق والتنفيذ", desc: "بعد الاعتماد يتم التنسيق على التوريد أو التنفيذ حسب المشروع." },
+                  { title: "التنسيق والتنفيذ", desc: "بعد الاعتماد يتم التنسيق على التوريد أو التنفيذ." },
                 ].map((step, i) => (
                   <div key={i} className="relative pr-10">
                     <span className="absolute right-0 top-1 w-7 h-7 bg-white border-2 border-primary text-primary rounded-full flex items-center justify-center text-sm font-bold shadow-sm">
                       {i + 1}
                     </span>
-                    <h3 className="font-bold text-gray-900 mb-1">{step.title}</h3>
-                    <p className="text-gray-600 text-sm">{step.desc}</p>
+                    <h3 className="font-bold text-gray-900 mb-1 text-sm md:text-base">{step.title}</h3>
+                    <p className="text-gray-600 text-xs md:text-sm">{step.desc}</p>
                   </div>
                 ))}
               </div>

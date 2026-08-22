@@ -8,10 +8,5 @@ export function generateLocalBusinessSchema() {
     "image": siteConfig.logo,
     "url": siteConfig.url,
     "telephone": siteConfig.contact.phone,
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": siteConfig.contact.address,
-      "addressCountry": "SA",
-    },
   };
 }

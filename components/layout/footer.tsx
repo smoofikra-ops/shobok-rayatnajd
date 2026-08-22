@@ -37,9 +37,9 @@ export function Footer() {
           <div className="md:col-span-2">
             <h3 className="text-lg font-semibold text-gray-900 mb-4">تواصل معنا</h3>
             <ul className="space-y-3 text-sm text-gray-600">
-              <li>العنوان: {siteConfig.contact.address}</li>
-              <li>الهاتف: <a href={`tel:${siteConfig.contact.phone}`} className="hover:text-primary dir-ltr inline-block">{siteConfig.contact.phone}</a></li>
-              <li>البريد: <a href={`mailto:${siteConfig.contact.email}`} className="hover:text-primary">{siteConfig.contact.email}</a></li>
+              <li>المؤسسة: رايات نجد للمقاولات</li>
+              <li className="flex gap-2">الهاتف: <a href={`tel:${siteConfig.contact.phone}`} className="hover:text-primary dir-ltr inline-block font-medium" dir="ltr">{siteConfig.contact.phoneDisplay}</a></li>
+              <li className="flex gap-2">واتساب: <a href={`https://wa.me/${siteConfig.contact.whatsapp}`} className="hover:text-primary dir-ltr inline-block font-medium" dir="ltr">{siteConfig.contact.phoneDisplay}</a></li>
             </ul>
           </div>
         </div>
