@@ -24,28 +24,43 @@ export default function HomePage({ params: { locale } }: { params: { locale: str
       />
       
       {/* 1. Hero Section */}
-      <section className="py-16 md:py-24 bg-gray-50 border-b border-gray-100 relative overflow-hidden">
+      <section className="py-20 md:py-28 relative overflow-hidden border-b border-gray-100 flex items-center justify-center min-h-[480px]">
+        {/* Background Video */}
+        <div className="absolute inset-0 z-0 overflow-hidden">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full h-full object-cover scale-105"
+          >
+            <source src="https://nmolabs-cdn.b-cdn.net/shobok-rayatnajd/home/hero/hero-shobok.mp4" type="video/mp4" />
+          </video>
+          {/* Overlay to ensure clear contrast while keeping video vibrant and bright */}
+          <div className="absolute inset-0 bg-black/30 bg-gradient-to-b from-black/45 via-black/20 to-black/50" />
+        </div>
+
         <Container className="flex flex-col items-center text-center relative z-10">
-          <span className="inline-block py-1.5 px-3 rounded-full bg-primary/10 text-primary text-xs font-bold mb-6 tracking-wide uppercase">
+          <span className="inline-block py-1.5 px-3.5 rounded-full bg-black/40 text-[#f5d77f] border border-white/20 text-xs font-bold mb-6 tracking-wide uppercase backdrop-blur-md shadow-sm">
             {dict.hero.subtitle}
           </span>
-          <h1 className="text-[51px] leading-[65px] font-extrabold text-gray-900 mb-6 max-w-4xl tracking-tight">
+          <h1 className="text-[51px] leading-[65px] font-extrabold text-white mb-6 max-w-4xl tracking-tight [text-shadow:_0_2px_12px_rgba(0,0,0,0.85)]">
             {dict.hero.title}
           </h1>
-          <p className="text-base md:text-lg text-gray-600 mb-10 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-base md:text-lg text-white font-medium mb-10 max-w-2xl mx-auto leading-relaxed [text-shadow:_0_1px_8px_rgba(0,0,0,0.85)]">
             {dict.hero.desc}
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto">
             <Link 
               href={`/${locale}/request-quote`} 
-              className="w-full sm:w-auto bg-gradient-to-r from-[#4A281A] via-[#B56D2A] to-[#B9A174] text-white px-8 py-3.5 rounded-md font-bold hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2 group"
+              className="w-full sm:w-auto bg-gradient-to-r from-[#4A281A] via-[#B56D2A] to-[#B9A174] text-white px-8 py-3.5 rounded-md font-bold hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2 group shadow-md"
             >
               {dict.hero.quoteBtn}
               <ArrowLeft className={`w-4 h-4 transition-transform duration-300 ${isEn ? "rotate-180 group-hover:translate-x-1" : "group-hover:-translate-x-1"}`} />
             </Link>
             <a 
               href={`https://wa.me/${siteConfig.contact.whatsapp}?text=${encodeURIComponent("السلام عليكم، أرغب في الاستفسار عن توريد/تركيب الشبوك لمشروع.")}`} 
-              className="w-full sm:w-auto bg-gradient-to-r from-[#075E54] to-[#128C7E] text-white px-8 py-3.5 rounded-md font-bold hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2" 
+              className="w-full sm:w-auto bg-gradient-to-r from-[#075E54] to-[#128C7E] text-white px-8 py-3.5 rounded-md font-bold hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2 shadow-md" 
               dir="ltr"
             >
               <MessagesSquare className="w-5 h-5" />
