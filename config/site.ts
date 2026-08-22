@@ -4,9 +4,9 @@ export const siteConfig = {
   url: "https://rayatnajd.com",
   logo: "/images/logo.png",
   contact: {
-    phone: "+966557555716",
-    phoneDisplay: "0557555716",
-    whatsapp: "966557555716",
+    phone: "+966555987614",
+    phoneDisplay: "0555987614",
+    whatsapp: "966555987614",
   },
   social: {
     twitter: "https://twitter.com/rayatnajd",
