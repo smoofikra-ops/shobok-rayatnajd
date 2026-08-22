@@ -29,7 +29,7 @@ export default function HomePage({ params: { locale } }: { params: { locale: str
           <span className="inline-block py-1.5 px-3 rounded-full bg-primary/10 text-primary text-xs font-bold mb-6 tracking-wide uppercase">
             {dict.hero.subtitle}
           </span>
-          <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 mb-6 leading-[1.3] md:leading-[1.2] max-w-4xl tracking-tight">
+          <h1 className="text-[51px] leading-[65px] font-extrabold text-gray-900 mb-6 max-w-4xl tracking-tight">
             {dict.hero.title}
           </h1>
           <p className="text-base md:text-lg text-gray-600 mb-10 max-w-2xl mx-auto leading-relaxed">
