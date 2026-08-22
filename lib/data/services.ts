@@ -39,7 +39,7 @@ export const servicesData: ServiceData[] = [
     descAr: "توريد وتنفيذ للمشاريع والمواقع حسب الاستخدام والمقاسات.",
     descEn: "Supply and installation for projects and sites based on usage and dimensions.",
     icon: HardHat,
-    image: "https://images.unsplash.com/photo-1517581177682-a085bb7ffb15?auto=format&fit=crop&w=800&q=80",
+    image: "https://nmolabs-cdn.b-cdn.net/shobok-rayatnajd/services/Outdoor-Canopies/outdoor-conb.png",
     isMain: true,
   },
   {
@@ -49,7 +49,7 @@ export const servicesData: ServiceData[] = [
     descAr: "توريد وتركيب هياكل الهناجر للمستودعات والمرافق وفق المواصفات.",
     descEn: "Supply and installation of hangar structures for warehouses and facilities according to specifications.",
     icon: Warehouse,
-    image: "https://images.unsplash.com/photo-1587293852726-70cdb56c2866?auto=format&fit=crop&w=800&q=80",
+    image: "https://nmolabs-cdn.b-cdn.net/shobok-rayatnajd/services/Hangars/IMG_0897.JPG",
     isMain: true,
   },
   {
@@ -59,7 +59,7 @@ export const servicesData: ServiceData[] = [
     descAr: "تأمين وتسوير المواقع والمرافق الصناعية بحلول مخصصة.",
     descEn: "Securing and fencing industrial sites and facilities with customized solutions.",
     icon: Factory,
-    image: "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=800&q=80",
+    image: "https://nmolabs-cdn.b-cdn.net/shobok-rayatnajd/services/industrial-fence/industrial-shobok.webp",
   },
   {
     slug: "farm-fencing",
@@ -68,7 +68,7 @@ export const servicesData: ServiceData[] = [
     descAr: "حلول تسوير وحماية الأراضي والمشاريع الزراعية المختلفة.",
     descEn: "Fencing and protection solutions for various agricultural lands and projects.",
     icon: Tractor,
-    image: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=800&q=80",
+    image: "https://nmolabs-cdn.b-cdn.net/shobok-rayatnajd/services/agricultural-fence/farms-shobok.jpg",
   },
   {
     slug: "galvanized-fencing",
@@ -77,7 +77,7 @@ export const servicesData: ServiceData[] = [
     descAr: "شبوك مقاومة للصدأ والعوامل الجوية للمشاريع طويلة الأجل.",
     descEn: "Rust-resistant and weatherproof fencing for long-term projects.",
     icon: Shield,
-    image: "https://images.unsplash.com/photo-1584467735815-f778f274e296?auto=format&fit=crop&w=800&q=80",
+    image: "https://nmolabs-cdn.b-cdn.net/shobok-rayatnajd/services/galvanized-fence/golvan.jpg",
   },
   {
     slug: "supply-install",
