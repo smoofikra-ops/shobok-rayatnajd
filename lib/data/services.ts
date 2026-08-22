@@ -29,7 +29,7 @@ export const servicesData: ServiceData[] = [
     descAr: "للمشاريع والمرافق والمنشآت وفق نطاق العمل والمواصفات المطلوبة.",
     descEn: "For projects, facilities, and structures according to the scope of work and required specifications.",
     icon: Fence,
-    image: "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80",
+    image: "https://nmolabs-cdn.b-cdn.net/shobok-rayatnajd/services/iron-fence/iron-fenc.jpeg",
     isMain: true,
   },
   {
