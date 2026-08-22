@@ -1,51 +1,82 @@
-import Link from "next/link";
-import { siteConfig } from "@/config/site";
 import { Container } from "@/components/ui/container";
+import { siteConfig } from "@/config/site";
+import Link from "next/link";
+import { Phone, MessagesSquare, ArrowLeft } from "lucide-react";
+import { getDictionary } from "@/lib/dictionary";
 
-export function Footer() {
+export function Footer({ locale }: { locale: string }) {
+  const dict = getDictionary(locale);
+  const isEn = locale === "en";
+
   return (
-    <footer className="border-t border-gray-100 bg-gray-50 py-12">
+    <footer className="bg-gray-900 text-gray-300 pt-16 pb-8 border-t border-gray-800">
       <Container>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16 mb-12">
+          
+          {/* Brand */}
           <div className="md:col-span-1">
-            <Link href="/" className="flex items-center space-x-2">
-              <span className="text-2xl font-bold text-primary">
-                {siteConfig.name}
-              </span>
+            <Link href={`/${locale}`} className="flex items-center gap-2 mb-6 group inline-flex">
+              <div className="w-10 h-10 bg-primary text-white rounded-lg flex items-center justify-center font-bold text-xl">
+                ر
+              </div>
+              <div className="flex flex-col">
+                <span className="font-bold text-lg leading-tight text-white group-hover:text-primary transition-colors">
+                  {isEn ? "Rayat Najd Fencing" : "شبوك رايات نجد"}
+                </span>
+              </div>
             </Link>
-            <p className="mt-4 text-sm text-gray-600 leading-loose">
-              {siteConfig.description}
+            <p className="text-sm text-gray-400 leading-relaxed mb-6">
+              {isEn 
+                ? "Rayat Najd Contracting Est. provides the best supply and installation services for fencing, shades, and hangars with the highest quality standards."
+                : "مؤسسة رايات نجد للمقاولات نقدم أفضل خدمات توريد وتركيب الشبوك، المظلات، والهناجر بأعلى معايير الجودة للمشاريع."}
             </p>
           </div>
-          
-          <div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">روابط سريعة</h3>
+
+          {/* Links */}
+          <div className="md:col-span-1">
+            <h3 className="text-lg font-bold text-white mb-6 flex items-center gap-2">
+              {dict.footer.links}
+            </h3>
             <ul className="space-y-3">
-              {siteConfig.mainNav.map((item) => (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    className="text-sm text-gray-600 hover:text-primary transition-colors"
-                  >
-                    {item.title}
+              {[
+                { title: dict.nav.home, href: `/${locale}` },
+                { title: dict.nav.services, href: `/${locale}/services` },
+                { title: dict.nav.projects, href: `/${locale}/projects` },
+                { title: dict.nav.about, href: `/${locale}/about` },
+                { title: dict.nav.contact, href: `/${locale}/contact` },
+              ].map((link, idx) => (
+                <li key={idx}>
+                  <Link href={link.href} className="text-sm text-gray-400 hover:text-white hover:translate-x-1 inline-block transition-all flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 bg-primary/50 rounded-full"></span>
+                    {link.title}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
-          
-          <div className="md:col-span-2">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">تواصل معنا</h3>
-            <ul className="space-y-3 text-sm text-gray-600">
-              <li>المؤسسة: رايات نجد للمقاولات</li>
-              <li className="flex gap-2">الهاتف: <a href={`tel:${siteConfig.contact.phone}`} className="hover:text-primary dir-ltr inline-block font-medium" dir="ltr">{siteConfig.contact.phoneDisplay}</a></li>
-              <li className="flex gap-2">واتساب: <a href={`https://wa.me/${siteConfig.contact.whatsapp}`} className="hover:text-primary dir-ltr inline-block font-medium" dir="ltr">{siteConfig.contact.phoneDisplay}</a></li>
+
+          {/* Contact */}
+          <div className="md:col-span-1">
+            <h3 className="text-lg font-bold text-white mb-6">{dict.footer.contact}</h3>
+            <ul className="space-y-4 text-sm text-gray-400">
+              <li className="flex items-center gap-3">
+                <span className="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center shrink-0">
+                  <Phone className="w-4 h-4 text-primary" />
+                </span>
+                <a href={`tel:${siteConfig.contact.phone}`} className="hover:text-white transition-colors" dir="ltr">{siteConfig.contact.phoneDisplay}</a>
+              </li>
+              <li className="flex items-center gap-3">
+                <span className="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center shrink-0">
+                  <MessagesSquare className="w-4 h-4 text-[#25D366]" />
+                </span>
+                <a href={`https://wa.me/${siteConfig.contact.whatsapp}`} className="hover:text-white transition-colors" dir="ltr">{siteConfig.contact.phoneDisplay}</a>
+              </li>
             </ul>
           </div>
         </div>
-        
-        <div className="mt-12 pt-8 border-t border-gray-200 text-center text-sm text-gray-500">
-          <p>جميع الحقوق محفوظة © {new Date().getFullYear()} {siteConfig.name}</p>
+
+        <div className="pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-500">
+          <p>© {new Date().getFullYear()} {dict.footer.company}. {isEn ? "All rights reserved." : "جميع الحقوق محفوظة."}</p>
         </div>
       </Container>
     </footer>
