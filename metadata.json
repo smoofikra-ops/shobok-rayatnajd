@@ -1,0 +1,6 @@
+{
+  "name": "شبوك رايات نجد",
+  "description": "الموقع الرسمي لمؤسسة شبوك رايات نجد - V1",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
