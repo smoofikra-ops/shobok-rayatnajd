@@ -146,7 +146,13 @@ export function AnnouncementBanner({ locale }: AnnouncementBannerProps) {
         .header-ticker-track {
           display: flex;
           width: max-content;
-          animation: header-ticker-rtl 55s linear infinite;
+          animation: header-ticker-rtl 85s linear infinite;
+          will-change: transform;
+        }
+        @media (max-width: 640px) {
+          .header-ticker-track {
+            animation-duration: 95s;
+          }
         }
         .header-ticker-track:hover {
           animation-play-state: paused;
@@ -171,6 +177,7 @@ export function AnnouncementBanner({ locale }: AnnouncementBannerProps) {
             <Link
               key={idx}
               href={item.href}
+              prefetch={true}
               className={`inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-medium transition-all duration-300 group shrink-0 ${
                 item.highlight
                   ? "bg-gradient-to-r from-[#B56D2A]/30 to-[#7C3E1D]/30 border border-[#B56D2A]/40 text-[#f5d77f] hover:border-[#f5d77f]"

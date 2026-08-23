@@ -54,16 +54,16 @@ export function Header({ locale }: { locale: string }) {
           <div className="flex items-center justify-between gap-4">
           
           {/* Logo - Always on the "start" side based on direction */}
-          <Link href={`/${locale}`} className="flex items-center gap-2 group shrink-0">
-            <div className="w-10 h-10 bg-primary text-white rounded-lg flex items-center justify-center font-bold text-xl group-hover:bg-primary-hover transition-colors">
+          <Link href={`/${locale}`} prefetch={true} className="flex items-center gap-2.5 group shrink-0">
+            <div className="w-10 h-10 bg-gradient-to-br from-[#B56D2A] to-[#4A281A] text-white rounded-xl flex items-center justify-center font-bold text-xl shadow-md border border-amber-500/20 group-hover:scale-105 transition-transform">
               ر
             </div>
             <div className="flex flex-col">
-              <span className="font-bold text-lg leading-tight text-gray-900 group-hover:text-primary transition-colors">
-                {isEn ? "Rayat Najd" : "رايات نجد"}
+              <span className="font-bold text-base sm:text-lg leading-tight text-gray-900 group-hover:text-primary transition-colors">
+                {isEn ? "Rayat Najd Fencing" : "شبوك رايات نجد"}
               </span>
-              <span className="text-xs font-medium text-gray-500">
-                {isEn ? "Contracting" : "للمقاولات"}
+              <span className="text-[10px] sm:text-xs font-medium text-gray-500">
+                {isEn ? "Contracting & Structural Solutions" : "للمقاولات والحلول الإنشائية"}
               </span>
             </div>
           </Link>
@@ -74,6 +74,7 @@ export function Header({ locale }: { locale: string }) {
               <Link
                 key={idx}
                 href={link.href}
+                prefetch={true}
                 className={`text-sm font-bold px-3 py-2 rounded-md transition-all duration-300 relative group
                   ${isActive(link.href) 
                     ? "text-primary bg-primary/5" 
@@ -92,6 +93,7 @@ export function Header({ locale }: { locale: string }) {
             
             <Link 
               href={`/${locale}/request-quote`} 
+              prefetch={true}
               className="bg-gradient-to-r from-[#4A281A] via-[#B56D2A] to-[#B9A174] text-white px-5 py-2.5 rounded-md text-sm font-bold hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 flex items-center gap-2 group"
             >
               {dict.hero.quoteBtn}
@@ -121,6 +123,7 @@ export function Header({ locale }: { locale: string }) {
               <Link
                 key={idx}
                 href={link.href}
+                prefetch={true}
                 onClick={() => setIsMenuOpen(false)}
                 className={`text-base font-bold p-4 border-b border-gray-50 flex items-center justify-between group
                   ${isActive(link.href) ? "text-primary bg-primary/5" : "text-gray-700"}
@@ -133,8 +136,9 @@ export function Header({ locale }: { locale: string }) {
             <div className="p-4 pt-6">
               <Link 
                 href={`/${locale}/request-quote`} 
+                prefetch={true}
                 onClick={() => setIsMenuOpen(false)}
-                className="w-full bg-gradient-to-r from-[#4A281A] via-[#B56D2A] to-[#B9A174] text-white p-4 rounded-md text-center font-bold shadow-sm"
+                className="w-full bg-gradient-to-r from-[#4A281A] via-[#B56D2A] to-[#B9A174] text-white p-4 rounded-md text-center font-bold shadow-sm block"
               >
                 {dict.hero.quoteBtn}
               </Link>

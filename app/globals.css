@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
   body {
     @apply bg-white text-gray-900;
   }

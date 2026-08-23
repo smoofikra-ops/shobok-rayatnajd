@@ -55,11 +55,11 @@ export default function ServicePage({ params: { slug, locale } }: Props) {
         <Container>
           {/* Breadcrumb */}
           <nav className="flex items-center gap-2 text-xs sm:text-sm text-gray-500 mb-6 flex-wrap">
-            <Link href={`/${locale}`} className="hover:text-primary transition-colors">
+            <Link href={`/${locale}`} prefetch={true} className="hover:text-primary transition-colors">
               {dict.nav.home}
             </Link>
             <ChevronRight className={`w-3.5 h-3.5 ${isEn ? "" : "rotate-180"}`} />
-            <Link href={`/${locale}/services`} className="hover:text-primary transition-colors">
+            <Link href={`/${locale}/services`} prefetch={true} className="hover:text-primary transition-colors">
               {dict.nav.services}
             </Link>
             <ChevronRight className={`w-3.5 h-3.5 ${isEn ? "" : "rotate-180"}`} />
@@ -264,7 +264,8 @@ export default function ServicePage({ params: { slug, locale } }: Props) {
                     <Link
                       key={rel.slug}
                       href={`/${locale}/services/${rel.slug}`}
-                      className="group flex items-center justify-between p-3 rounded-xl hover:bg-amber-50/50 border border-transparent hover:border-amber-200 transition-all text-xs sm:text-sm text-gray-700 font-medium"
+                      prefetch={true}
+                      className="group flex items-center justify-between p-3 rounded-xl hover:bg-amber-50/50 border border-transparent hover:border-amber-200 transition-all text-xs sm:text-sm text-gray-700 font-medium active:scale-98"
                     >
                       <span className="group-hover:text-[#7C3E1D] transition-colors font-bold">
                         {isEn ? rel.titleEn : rel.titleAr}

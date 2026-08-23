@@ -79,6 +79,7 @@ export function MarqueeCarousel({ locale }: { locale: string }) {
               <Link
                 key={idx}
                 href={`/${locale}/services/${service.slug}`}
+                prefetch={true}
                 className="marquee-card group flex flex-col bg-white rounded-xl sm:rounded-2xl border border-gray-200 overflow-hidden hover:border-[#B56D2A] hover:shadow-xl hover:-translate-y-1 transition-all duration-300 shrink-0 outline-none focus-visible:ring-2 focus-visible:ring-[#B56D2A] h-[230px] sm:h-[340px]"
               >
                 <div className="h-[95px] sm:h-[160px] w-full relative bg-gray-100 overflow-hidden shrink-0">

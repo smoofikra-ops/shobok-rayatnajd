@@ -1,7 +1,7 @@
 import { Container } from "@/components/ui/container";
 import { siteConfig } from "@/config/site";
 import Link from "next/link";
-import { Phone, MessagesSquare, Heart, ShieldCheck, Clock, MapPin } from "lucide-react";
+import { Phone, MessagesSquare, Heart, ShieldCheck, Clock, MapPin, BookOpen, Sparkles } from "lucide-react";
 import { getDictionary } from "@/lib/dictionary";
 import { getDirectWhatsAppUrl } from "@/lib/whatsapp";
 
@@ -77,11 +77,11 @@ export function Footer({ locale }: { locale: string }) {
       <div className="absolute top-0 left-0 right-0 h-28 bg-gradient-to-b from-transparent via-[#2D160E]/40 to-transparent -z-10 pointer-events-none" />
       
       <Container className="relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 lg:gap-14 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-8 mb-12">
           
-          {/* Brand Info */}
-          <div className="md:col-span-1">
-            <Link href={`/${locale}`} className="flex items-center gap-3 mb-5 group inline-flex">
+          {/* 1. Brand Info (4 cols on lg) */}
+          <div className="lg:col-span-4">
+            <Link href={`/${locale}`} prefetch={true} className="flex items-center gap-3 mb-5 group inline-flex">
               <div className="w-11 h-11 bg-gradient-to-br from-[#B56D2A] to-[#4A281A] text-white rounded-xl flex items-center justify-center font-bold text-xl shadow-lg border border-amber-500/20 group-hover:scale-105 transition-transform">
                 ر
               </div>
@@ -113,8 +113,8 @@ export function Footer({ locale }: { locale: string }) {
             </div>
           </div>
 
-          {/* Navigation Links */}
-          <div className="md:col-span-1">
+          {/* 2. Navigation Links (2 cols on lg) */}
+          <div className="lg:col-span-2">
             <h3 className="text-base font-bold text-white mb-5 flex items-center gap-2 pb-2 border-b border-white/10">
               <span className="w-2 h-2 rounded-full bg-[#B56D2A]" />
               {dict.footer.links}
@@ -130,6 +130,7 @@ export function Footer({ locale }: { locale: string }) {
                 <li key={idx}>
                   <Link 
                     href={link.href} 
+                    prefetch={true}
                     className="text-sm text-gray-300 hover:text-[#f5d77f] hover:translate-x-1 inline-flex items-center gap-2 transition-all group py-0.5"
                   >
                     <span className="w-1.5 h-1.5 rounded-full bg-[#B56D2A]/60 group-hover:bg-[#f5d77f] group-hover:scale-125 transition-all" />
@@ -140,8 +141,47 @@ export function Footer({ locale }: { locale: string }) {
             </ul>
           </div>
 
-          {/* Contact & Location */}
-          <div className="md:col-span-1">
+          {/* 3. NEW: مدونة شبوك رايات نجد (3 cols on lg) */}
+          <div className="lg:col-span-3">
+            <div className="flex items-center justify-between gap-2 mb-5 pb-2 border-b border-white/10">
+              <h3 className="text-base font-bold text-white flex items-center gap-2">
+                <BookOpen className="w-4 h-4 text-[#f5d77f]" />
+                <span>{isEn ? "Rayat Najd Fencing Blog" : "مدونة شبوك رايات نجد"}</span>
+              </h3>
+              <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-500/20 text-[#f5d77f] border border-amber-500/40 shadow-xs animate-pulse">
+                <Sparkles className="w-2.5 h-2.5" />
+                <span>{isEn ? "Soon" : "قريباً"}</span>
+              </span>
+            </div>
+
+            <p className="text-xs text-gray-300/85 leading-relaxed mb-4">
+              {isEn
+                ? "Engineering insights, guides on choosing security & agricultural fencing, and technical specifications for Saudi projects."
+                : "مقالات فنية وهندسية، إرشادات اختيار الشبوك الأمنية والزراعية، وأحدث المعايير المعتمدة لتسوير المشاريع."}
+            </p>
+
+            <div className="space-y-2">
+              <div className="p-2.5 rounded-xl bg-white/5 border border-white/10 hover:border-amber-500/30 transition-all text-xs text-gray-300">
+                <span className="block font-bold text-[#f5d77f] text-[11px] mb-0.5">
+                  {isEn ? "• Technical Specification Guide" : "• دليل المواصفات الفنية للشبوك المجلفنة"}
+                </span>
+                <span className="text-[10px] text-gray-400">
+                  {isEn ? "Coming soon to the engineering blog" : "ينشر قريباً ضمن مقالات الدليل الهندسي"}
+                </span>
+              </div>
+              <div className="p-2.5 rounded-xl bg-white/5 border border-white/10 hover:border-amber-500/30 transition-all text-xs text-gray-300">
+                <span className="block font-bold text-[#f5d77f] text-[11px] mb-0.5">
+                  {isEn ? "• Project Fencing Requirements" : "• معايير واشتراطات تسوير المزارع والمواقع"}
+                </span>
+                <span className="text-[10px] text-gray-400">
+                  {isEn ? "In-depth insights for contractors" : "شروحات تفصيلية لمديري المشاريع والمقاولين"}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* 4. Contact & Location (3 cols on lg) */}
+          <div className="lg:col-span-3">
             <h3 className="text-base font-bold text-white mb-5 flex items-center gap-2 pb-2 border-b border-white/10">
               <span className="w-2 h-2 rounded-full bg-[#B56D2A]" />
               {dict.footer.contact}

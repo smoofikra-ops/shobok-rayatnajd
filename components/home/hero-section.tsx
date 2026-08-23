@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { Container } from "@/components/ui/container";
 import { siteConfig } from "@/config/site";
 import Link from "next/link";
@@ -10,35 +11,83 @@ import { getDirectWhatsAppUrl } from "@/lib/whatsapp";
 export function HeroSection({ locale }: { locale: string }) {
   const dict = getDictionary(locale);
   const isEn = locale === "en";
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    // Force mobile & desktop autoplay compliance
+    video.muted = true;
+    video.defaultMuted = true;
+    video.playsInline = true;
+    video.loop = true;
+
+    const playVideo = () => {
+      if (video.paused) {
+        video.play().catch(() => {
+          // Autoplay policy might hold until first gesture on extreme power saver mode
+        });
+      }
+    };
+
+    // Attempt instant playback
+    playVideo();
+
+    // Auto resume if paused or ended
+    const handleEnded = () => {
+      video.currentTime = 0;
+      playVideo();
+    };
+
+    const handleVisibility = () => {
+      if (document.visibilityState === "visible") {
+        playVideo();
+      }
+    };
+
+    // User gesture fallback for aggressive mobile low-power modes
+    const handleUserGesture = () => {
+      playVideo();
+    };
+
+    video.addEventListener("ended", handleEnded);
+    video.addEventListener("pause", playVideo);
+    document.addEventListener("visibilitychange", handleVisibility);
+    window.addEventListener("touchstart", handleUserGesture, { passive: true, once: true });
+    window.addEventListener("scroll", handleUserGesture, { passive: true, once: true });
+    window.addEventListener("click", handleUserGesture, { passive: true, once: true });
+
+    return () => {
+      video.removeEventListener("ended", handleEnded);
+      video.removeEventListener("pause", playVideo);
+      document.removeEventListener("visibilitychange", handleVisibility);
+      window.removeEventListener("touchstart", handleUserGesture);
+      window.removeEventListener("scroll", handleUserGesture);
+      window.removeEventListener("click", handleUserGesture);
+    };
+  }, []);
 
   return (
     <section className="relative overflow-hidden border-b border-gray-100 flex items-center justify-center min-h-[500px] md:min-h-[560px] lg:min-h-[620px] py-16 md:py-24">
-      {/* Responsive Background Video */}
-      <div className="absolute inset-0 z-0 overflow-hidden bg-gray-900">
-        {/* Desktop / Tablet Landscape Video */}
+      {/* Responsive Seamless Continuous Background Video */}
+      <div className="absolute inset-0 z-0 overflow-hidden bg-gray-950">
         <video
+          ref={videoRef}
           autoPlay
           loop
           muted
           playsInline
-          className="hidden md:block w-full h-full object-cover object-center scale-105"
-        >
-          <source src="https://nmolabs-cdn.b-cdn.net/shobok-rayatnajd/home/hero/hero-shobok.mp4" type="video/mp4" />
-        </video>
-
-        {/* Mobile Video with optimized mobile framing */}
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="block md:hidden w-full h-full object-cover object-[center_35%]"
+          preload="auto"
+          disablePictureInPicture
+          disableRemotePlayback
+          className="w-full h-full object-cover object-[center_35%] md:object-center scale-105 pointer-events-none select-none"
         >
           <source src="https://nmolabs-cdn.b-cdn.net/shobok-rayatnajd/home/hero/hero-shobok.mp4" type="video/mp4" />
         </video>
 
         {/* Clear, bright overlay for crystal-clear readability without dimming the video excessively */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/35 to-black/65" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
       </div>
 
       <Container className="flex flex-col items-center text-center relative z-10 px-4 sm:px-6">
