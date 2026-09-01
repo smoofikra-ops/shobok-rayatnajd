@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Container } from "@/components/ui/container";
 import { siteConfig } from "@/config/site";
 import Link from "next/link";
@@ -82,8 +83,15 @@ export function Footer({ locale }: { locale: string }) {
           {/* 1. Brand Info (4 cols on lg) */}
           <div className="lg:col-span-4">
             <Link href={`/${locale}`} prefetch={true} className="flex items-center gap-3 mb-5 group inline-flex">
-              <div className="w-11 h-11 bg-gradient-to-br from-[#B56D2A] to-[#4A281A] text-white rounded-xl flex items-center justify-center font-bold text-xl shadow-lg border border-amber-500/20 group-hover:scale-105 transition-transform">
-                ر
+              <div className="relative w-12 h-12 rounded-xl overflow-hidden shadow-lg border border-amber-500/30 bg-white/10 p-1 flex items-center justify-center group-hover:scale-105 transition-transform shrink-0">
+                <Image
+                  src={siteConfig.logo}
+                  alt={isEn ? "Rayat Najd Fencing Logo" : "شعار شبوك رايات نجد"}
+                  width={48}
+                  height={48}
+                  className="w-full h-full object-contain"
+                  referrerPolicy="no-referrer"
+                />
               </div>
               <div className="flex flex-col">
                 <span className="font-bold text-xl leading-tight text-white group-hover:text-[#f5d77f] transition-colors">

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X, ArrowLeft } from "lucide-react";
@@ -55,8 +56,16 @@ export function Header({ locale }: { locale: string }) {
           
           {/* Logo - Always on the "start" side based on direction */}
           <Link href={`/${locale}`} prefetch={true} className="flex items-center gap-2.5 group shrink-0">
-            <div className="w-10 h-10 bg-gradient-to-br from-[#B56D2A] to-[#4A281A] text-white rounded-xl flex items-center justify-center font-bold text-xl shadow-md border border-amber-500/20 group-hover:scale-105 transition-transform">
-              ر
+            <div className="relative w-10 h-10 sm:w-11 sm:h-11 rounded-xl overflow-hidden shadow-sm border border-amber-900/10 bg-amber-50/40 p-0.5 flex items-center justify-center group-hover:scale-105 transition-transform shrink-0">
+              <Image
+                src={siteConfig.logo}
+                alt={isEn ? "Rayat Najd Fencing Logo" : "شعار شبوك رايات نجد"}
+                width={44}
+                height={44}
+                className="w-full h-full object-contain"
+                priority
+                referrerPolicy="no-referrer"
+              />
             </div>
             <div className="flex flex-col">
               <span className="font-bold text-base sm:text-lg leading-tight text-gray-900 group-hover:text-primary transition-colors">
