@@ -7,15 +7,71 @@ import { Briefcase, Building2, CheckCircle2, ShieldCheck, FileSpreadsheet, Messa
 import { servicesData } from "@/lib/data/services";
 import Image from "next/image";
 import { getDirectWhatsAppUrl } from "@/lib/whatsapp";
+import { generateBreadcrumbSchema, generateWebPageSchema } from "@/lib/schema";
 
-export const metadata: Metadata = {
-  title: "المشاريع ونطاق التنفيذ | مؤسسة رايات نجد للمقاولات",
-  description: "نطاق تنفيذ المشاريع والقدرات التشغيلية لتوريد وتركيب الشبوك والسياج والمظلات والهناجر في المملكة العربية السعودية.",
-};
+export async function generateMetadata({ params: { locale } }: { params: { locale: string } }): Promise<Metadata> {
+  const isEn = locale === "en";
+  const baseUrl = siteConfig.url.replace(/\/$/, "");
+  const canonicalUrl = isEn ? `${baseUrl}/en/projects` : `${baseUrl}/projects`;
+
+  const title = isEn
+    ? "Projects & Operational Capabilities | Rayat Najd Contracting"
+    : "المشاريع ونطاق التنفيذ | مؤسسة رايات نجد للمقاولات";
+  const description = isEn
+    ? "Operational capabilities and track record of fencing, steel barriers, shades, and hangar construction projects across Saudi Arabia."
+    : "نطاق تنفيذ المشاريع والقدرات التشغيلية لتوريد وتركيب الشبوك والسياج والمظلات والهناجر في المملكة العربية السعودية طبقاً للمخططات وجداول الكميات.";
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: canonicalUrl,
+      languages: {
+        "ar": `${baseUrl}/projects`,
+        "en": `${baseUrl}/en/projects`,
+        "x-default": `${baseUrl}/projects`,
+      },
+    },
+    openGraph: {
+      title,
+      description,
+      url: canonicalUrl,
+      type: "website",
+      images: [
+        {
+          url: siteConfig.logo,
+          width: 800,
+          height: 600,
+          alt: title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [siteConfig.logo],
+    },
+  };
+}
 
 export default function ProjectsPage({ params: { locale } }: { params: { locale: string } }) {
   const dict = getDictionary(locale);
   const isEn = locale === "en";
+  const baseUrl = siteConfig.url.replace(/\/$/, "");
+  const canonicalUrl = isEn ? `${baseUrl}/en/projects` : `${baseUrl}/projects`;
+
+  const breadcrumbs = generateBreadcrumbSchema([
+    { name: isEn ? "Home" : "الرئيسية", path: isEn ? "/en" : "/" },
+    { name: isEn ? "Projects" : "المشاريع", path: isEn ? "/en/projects" : "/projects" },
+  ]);
+
+  const webPageSchema = generateWebPageSchema({
+    title: isEn ? "Projects | Rayat Najd Contracting" : "المشاريع | مؤسسة رايات نجد للمقاولات",
+    description: isEn ? dict.projects.heroSubtitle : dict.projects.heroSubtitle,
+    url: canonicalUrl,
+    locale,
+  });
 
   const capabilities = [
     {
@@ -50,6 +106,20 @@ export default function ProjectsPage({ params: { locale } }: { params: { locale:
 
   return (
     <div className="bg-gray-50/40 pb-16 md:pb-24">
+      <script
+        id="schema-projects-webpage"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(webPageSchema),
+        }}
+      />
+      <script
+        id="schema-projects-breadcrumbs"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbs),
+        }}
+      />
       {/* 1. Hero Header */}
       <section className="bg-gradient-to-b from-amber-900/10 via-white to-gray-50/40 py-12 md:py-20 border-b border-gray-100">
         <Container>

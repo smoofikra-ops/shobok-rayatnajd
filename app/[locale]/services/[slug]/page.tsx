@@ -8,6 +8,7 @@ import Image from "next/image";
 import { siteConfig } from "@/config/site";
 import { type Metadata } from "next";
 import { getDirectWhatsAppUrl } from "@/lib/whatsapp";
+import { generateBreadcrumbSchema, generateServiceSchema, generateWebPageSchema } from "@/lib/schema";
 
 interface Props {
   params: { slug: string; locale: string };
@@ -24,9 +25,47 @@ export async function generateMetadata({ params: { slug, locale } }: Props): Pro
   const service = servicesData.find((s) => s.slug === slug);
   if (!service) return { title: "خدمات رايات نجد" };
   const isEn = locale === "en";
+  const baseUrl = siteConfig.url.replace(/\/$/, "");
+  const canonicalUrl = isEn ? `${baseUrl}/en/services/${service.slug}` : `${baseUrl}/services/${service.slug}`;
+
+  const title = isEn
+    ? `${service.titleEn} | Supply & Installation | Rayat Najd`
+    : `${service.titleAr} | توريد وتركيب | رايات نجد للمقاولات`;
+  const description = isEn
+    ? `${service.descEn} Tailored supply and execution for projects across Saudi Arabia.`
+    : `${service.descAr} توريد وتنفيذ احترافي للمشاريع والمنشآت في مختلف مناطق المملكة العربية السعودية.`;
+
   return {
-    title: `${isEn ? service.titleEn : service.titleAr} | رايات نجد للمقاولات`,
-    description: isEn ? service.descEn : service.descAr,
+    title,
+    description,
+    alternates: {
+      canonical: canonicalUrl,
+      languages: {
+        "ar": `${baseUrl}/services/${service.slug}`,
+        "en": `${baseUrl}/en/services/${service.slug}`,
+        "x-default": `${baseUrl}/services/${service.slug}`,
+      },
+    },
+    openGraph: {
+      title,
+      description,
+      url: canonicalUrl,
+      type: "article",
+      images: [
+        {
+          url: service.image,
+          width: 1200,
+          height: 800,
+          alt: isEn ? service.titleEn : service.titleAr,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [service.image],
+    },
   };
 }
 
@@ -34,6 +73,7 @@ export default function ServicePage({ params: { slug, locale } }: Props) {
   const service = servicesData.find((s) => s.slug === slug);
   const dict = getDictionary(locale);
   const isEn = locale === "en";
+  const baseUrl = siteConfig.url.replace(/\/$/, "");
 
   if (!service) {
     notFound();
@@ -48,8 +88,45 @@ export default function ServicePage({ params: { slug, locale } }: Props) {
   const relatedServices = servicesData.filter((s) => s.slug !== slug).slice(0, 3);
   const Icon = service.icon;
 
+  const canonicalUrl = isEn ? `${baseUrl}/en/services/${service.slug}` : `${baseUrl}/services/${service.slug}`;
+
+  const breadcrumbs = generateBreadcrumbSchema([
+    { name: isEn ? "Home" : "الرئيسية", path: isEn ? "/en" : "/" },
+    { name: isEn ? "Services" : "الخدمات", path: isEn ? "/en/services" : "/services" },
+    { name: title, path: isEn ? `/en/services/${service.slug}` : `/services/${service.slug}` },
+  ]);
+
+  const serviceSchema = generateServiceSchema(service, locale);
+  const webPageSchema = generateWebPageSchema({
+    title,
+    description: desc,
+    url: canonicalUrl,
+    locale,
+  });
+
   return (
     <div className="bg-gray-50/40 pb-16 md:pb-24">
+      <script
+        id="schema-service-entity"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(serviceSchema),
+        }}
+      />
+      <script
+        id="schema-service-breadcrumbs"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbs),
+        }}
+      />
+      <script
+        id="schema-service-webpage"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(webPageSchema),
+        }}
+      />
       {/* 1. Breadcrumbs & Hero Header */}
       <section className="bg-white border-b border-gray-100 py-8 md:py-12">
         <Container>

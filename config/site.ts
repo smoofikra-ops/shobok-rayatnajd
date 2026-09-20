@@ -7,10 +7,12 @@ export const siteConfig = {
     phone: "+966555987614",
     phoneDisplay: "0555987614",
     whatsapp: "966555987614",
+    email: "info@rayatnajd.com",
   },
   social: {
-    twitter: "https://twitter.com/rayatnajd",
-    instagram: "https://instagram.com/rayatnajd",
+    instagram: "https://www.instagram.com/shboknajd/",
+    tiktok: "https://www.tiktok.com/@shbooknajd",
+    x: "https://x.com/shboknajd",
   },
   mainNav: [
     { title: "الرئيسية", href: "/" },

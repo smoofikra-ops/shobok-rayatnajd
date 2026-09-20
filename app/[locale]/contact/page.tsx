@@ -5,18 +5,88 @@ import { PhoneCall, MessagesSquare, Clock, MapPin, Building2, ShieldCheck, Mail 
 import Link from "next/link";
 import { getDictionary } from "@/lib/dictionary";
 import { getDirectWhatsAppUrl } from "@/lib/whatsapp";
+import { generateBreadcrumbSchema, generateWebPageSchema } from "@/lib/schema";
 
-export const metadata: Metadata = {
-  title: "اتصل بنا | مؤسسة رايات نجد للمقاولات",
-  description: "تواصل مع مؤسسة رايات نجد للمقاولات في الرياض وكافة مناطق المملكة العربية السعودية لتوريد وتركيب الشبوك والسياج والمظلات والهناجر.",
-};
+export async function generateMetadata({ params: { locale } }: { params: { locale: string } }): Promise<Metadata> {
+  const isEn = locale === "en";
+  const baseUrl = siteConfig.url.replace(/\/$/, "");
+  const canonicalUrl = isEn ? `${baseUrl}/en/contact` : `${baseUrl}/contact`;
+
+  const title = isEn
+    ? "Contact Us | Rayat Najd Contracting"
+    : "اتصل بنا | مؤسسة رايات نجد للمقاولات";
+  const description = isEn
+    ? "Connect with Rayat Najd Contracting in Riyadh and across Saudi Arabia for fencing, shades, and hangar inquiries."
+    : "تواصل مع مؤسسة رايات نجد للمقاولات في الرياض وكافة مناطق المملكة العربية السعودية لتوريد وتركيب الشبوك والسياج والمظلات والهناجر.";
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: canonicalUrl,
+      languages: {
+        "ar": `${baseUrl}/contact`,
+        "en": `${baseUrl}/en/contact`,
+        "x-default": `${baseUrl}/contact`,
+      },
+    },
+    openGraph: {
+      title,
+      description,
+      url: canonicalUrl,
+      type: "website",
+      images: [
+        {
+          url: siteConfig.logo,
+          width: 800,
+          height: 600,
+          alt: title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [siteConfig.logo],
+    },
+  };
+}
 
 export default function ContactPage({ params: { locale } }: { params: { locale: string } }) {
   const dict = getDictionary(locale);
   const isEn = locale === "en";
+  const baseUrl = siteConfig.url.replace(/\/$/, "");
+  const canonicalUrl = isEn ? `${baseUrl}/en/contact` : `${baseUrl}/contact`;
+
+  const breadcrumbs = generateBreadcrumbSchema([
+    { name: isEn ? "Home" : "الرئيسية", path: isEn ? "/en" : "/" },
+    { name: isEn ? "Contact Us" : "اتصل بنا", path: isEn ? "/en/contact" : "/contact" },
+  ]);
+
+  const webPageSchema = generateWebPageSchema({
+    title: isEn ? "Contact Us | Rayat Najd Contracting" : "اتصل بنا | مؤسسة رايات نجد للمقاولات",
+    description: isEn ? dict.contact.heroSubtitle : dict.contact.heroSubtitle,
+    url: canonicalUrl,
+    locale,
+  });
 
   return (
     <div className="bg-gray-50/40 pb-16 md:pb-24">
+      <script
+        id="schema-contact-webpage"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(webPageSchema),
+        }}
+      />
+      <script
+        id="schema-contact-breadcrumbs"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbs),
+        }}
+      />
       {/* Header */}
       <section className="bg-gradient-to-b from-amber-900/10 via-white to-gray-50/40 py-12 md:py-16 border-b border-gray-100">
         <Container>

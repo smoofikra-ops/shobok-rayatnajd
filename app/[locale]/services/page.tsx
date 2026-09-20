@@ -2,21 +2,92 @@ import { type Metadata } from "next";
 import { Container } from "@/components/ui/container";
 import { servicesData } from "@/lib/data/services";
 import { getDictionary } from "@/lib/dictionary";
+import { siteConfig } from "@/config/site";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowLeft, Sparkles, FileText, Info } from "lucide-react";
+import { generateBreadcrumbSchema, generateWebPageSchema } from "@/lib/schema";
 
-export const metadata: Metadata = {
-  title: "خدمات الشبوك والسياج والمظلات والهناجر | رايات نجد",
-  description: "دليل شامل لكافة خدمات الشبوك الأمنية، السياج الحديدي، شبوك المزارع والمصانع، المظلات، وهياكل الهناجر من رايات نجد للمقاولات.",
-};
+export async function generateMetadata({ params: { locale } }: { params: { locale: string } }): Promise<Metadata> {
+  const isEn = locale === "en";
+  const baseUrl = siteConfig.url.replace(/\/$/, "");
+  const canonicalUrl = isEn ? `${baseUrl}/en/services` : `${baseUrl}/services`;
+
+  const title = isEn
+    ? "Fencing, Shades & Hangar Services | Rayat Najd Contracting"
+    : "خدمات الشبوك والسياج والمظلات والهناجر | رايات نجد للمقاولات";
+  const description = isEn
+    ? "Comprehensive directory of security fencing, steel fences, farm fences, industrial barriers, car shades, and warehouse hangar structures in Saudi Arabia."
+    : "دليل شامل لكافة خدمات الشبوك الأمنية، السياج الحديدي، شبوك المزارع والمنشآت الصناعية، المظلات، وهياكل الهناجر للمستودعات من رايات نجد للمقاولات.";
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: canonicalUrl,
+      languages: {
+        "ar": `${baseUrl}/services`,
+        "en": `${baseUrl}/en/services`,
+        "x-default": `${baseUrl}/services`,
+      },
+    },
+    openGraph: {
+      title,
+      description,
+      url: canonicalUrl,
+      type: "website",
+      images: [
+        {
+          url: siteConfig.logo,
+          width: 800,
+          height: 600,
+          alt: title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [siteConfig.logo],
+    },
+  };
+}
 
 export default function ServicesPage({ params: { locale } }: { params: { locale: string } }) {
   const dict = getDictionary(locale);
   const isEn = locale === "en";
+  const baseUrl = siteConfig.url.replace(/\/$/, "");
+  const canonicalUrl = isEn ? `${baseUrl}/en/services` : `${baseUrl}/services`;
+
+  const breadcrumbs = generateBreadcrumbSchema([
+    { name: isEn ? "Home" : "الرئيسية", path: isEn ? "/en" : "/" },
+    { name: isEn ? "Services" : "الخدمات", path: isEn ? "/en/services" : "/services" },
+  ]);
+
+  const webPageSchema = generateWebPageSchema({
+    title: isEn ? "Services | Rayat Najd Contracting" : "الخدمات | مؤسسة رايات نجد للمقاولات",
+    description: isEn ? dict.services.subtitle : dict.services.subtitle,
+    url: canonicalUrl,
+    locale,
+  });
 
   return (
     <div className="py-12 md:py-20 bg-gray-50/50">
+      <script
+        id="schema-services-webpage"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(webPageSchema),
+        }}
+      />
+      <script
+        id="schema-services-breadcrumbs"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbs),
+        }}
+      />
       <Container>
         {/* Header */}
         <div className="max-w-3xl mx-auto text-center mb-12 md:mb-16">

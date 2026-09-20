@@ -6,18 +6,88 @@ import { FileText, PhoneCall, MessagesSquare, Clock, ShieldCheck, Award } from "
 import { siteConfig } from "@/config/site";
 import { Suspense } from "react";
 import { getDirectWhatsAppUrl } from "@/lib/whatsapp";
+import { generateBreadcrumbSchema, generateWebPageSchema } from "@/lib/schema";
 
-export const metadata: Metadata = {
-  title: "طلب عرض سعر | مؤسسة رايات نجد للمقاولات",
-  description: "نموذج طلب عرض سعر وتوريد وتركيب الشبوك الأمنية، السياج الحديدي، المظلات، وهياكل الهناجر من رايات نجد للمقاولات.",
-};
+export async function generateMetadata({ params: { locale } }: { params: { locale: string } }): Promise<Metadata> {
+  const isEn = locale === "en";
+  const baseUrl = siteConfig.url.replace(/\/$/, "");
+  const canonicalUrl = isEn ? `${baseUrl}/en/request-quote` : `${baseUrl}/request-quote`;
+
+  const title = isEn
+    ? "Request a Quote | Rayat Najd Contracting"
+    : "طلب عرض سعر | مؤسسة رايات نجد للمقاولات";
+  const description = isEn
+    ? "Request an official project price quote and BOQ estimation for fencing, steel barriers, shades, and hangar construction in Saudi Arabia."
+    : "نموذج طلب عرض سعر رسمي وتوريد وتركيب الشبوك الأمنية، السياج الحديدي، المظلات، وهياكل الهناجر من رايات نجد للمقاولات في كافة مناطق المملكة العربية السعودية.";
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: canonicalUrl,
+      languages: {
+        "ar": `${baseUrl}/request-quote`,
+        "en": `${baseUrl}/en/request-quote`,
+        "x-default": `${baseUrl}/request-quote`,
+      },
+    },
+    openGraph: {
+      title,
+      description,
+      url: canonicalUrl,
+      type: "website",
+      images: [
+        {
+          url: siteConfig.logo,
+          width: 800,
+          height: 600,
+          alt: title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [siteConfig.logo],
+    },
+  };
+}
 
 export default function RequestQuotePage({ params: { locale } }: { params: { locale: string } }) {
   const dict = getDictionary(locale);
   const isEn = locale === "en";
+  const baseUrl = siteConfig.url.replace(/\/$/, "");
+  const canonicalUrl = isEn ? `${baseUrl}/en/request-quote` : `${baseUrl}/request-quote`;
+
+  const breadcrumbs = generateBreadcrumbSchema([
+    { name: isEn ? "Home" : "الرئيسية", path: isEn ? "/en" : "/" },
+    { name: isEn ? "Request a Quote" : "طلب عرض سعر", path: isEn ? "/en/request-quote" : "/request-quote" },
+  ]);
+
+  const webPageSchema = generateWebPageSchema({
+    title: isEn ? "Request a Quote | Rayat Najd Contracting" : "طلب عرض سعر | مؤسسة رايات نجد للمقاولات",
+    description: isEn ? dict.quote.heroSubtitle : dict.quote.heroSubtitle,
+    url: canonicalUrl,
+    locale,
+  });
 
   return (
     <div className="bg-gray-50/40 pb-16 md:pb-24">
+      <script
+        id="schema-quote-webpage"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(webPageSchema),
+        }}
+      />
+      <script
+        id="schema-quote-breadcrumbs"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbs),
+        }}
+      />
       {/* Header */}
       <section className="bg-gradient-to-b from-amber-900/10 via-white to-gray-50/40 py-12 md:py-16 border-b border-gray-100">
         <Container>

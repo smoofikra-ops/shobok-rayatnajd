@@ -7,10 +7,12 @@ const defaultLocale = "ar";
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   
-  // Exclude static files and api routes
+  // Exclude static files, xml/txt files, sitemaps, robots, and api routes
   if (
     pathname.startsWith("/_next") ||
     pathname.includes("/api/") ||
+    pathname.startsWith("/sitemap") ||
+    pathname.startsWith("/robots") ||
     pathname.match(/\.(.*)$/)
   ) {
     return;

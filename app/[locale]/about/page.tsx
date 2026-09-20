@@ -5,18 +5,88 @@ import { siteConfig } from "@/config/site";
 import Link from "next/link";
 import { Award, ShieldCheck, Target, Eye, CheckCircle2, FileText, MessagesSquare, PhoneCall, Building2, Trees } from "lucide-react";
 import { getDirectWhatsAppUrl } from "@/lib/whatsapp";
+import { generateBreadcrumbSchema, generateWebPageSchema } from "@/lib/schema";
 
-export const metadata: Metadata = {
-  title: "من نحن | مؤسسة رايات نجد للمقاولات",
-  description: "نبذة عن مؤسسة رايات نجد للمقاولات، تأسست عام 2010 في المملكة العربية السعودية، تصنيف المقاولين الدرجة الثالثة، متخصصة في إدارة وتنفيذ المشاريع والشبوك والمظلات والهناجر.",
-};
+export async function generateMetadata({ params: { locale } }: { params: { locale: string } }): Promise<Metadata> {
+  const isEn = locale === "en";
+  const baseUrl = siteConfig.url.replace(/\/$/, "");
+  const canonicalUrl = isEn ? `${baseUrl}/en/about` : `${baseUrl}/about`;
+
+  const title = isEn
+    ? "About Us | Rayat Najd Contracting Est."
+    : "من نحن | مؤسسة رايات نجد للمقاولات";
+  const description = isEn
+    ? "About Rayat Najd Contracting Est., established in 2010 in Saudi Arabia, 3rd Grade Contractor Classification, specialized in executing security fencing, shades, and hangar structures."
+    : "نبذة عن مؤسسة رايات نجد للمقاولات، تأسست عام 2010 في المملكة العربية السعودية، تصنيف المقاولين الدرجة الثالثة، متخصصة في إدارة وتنفيذ المشاريع والشبوك والمظلات والهناجر.";
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: canonicalUrl,
+      languages: {
+        "ar": `${baseUrl}/about`,
+        "en": `${baseUrl}/en/about`,
+        "x-default": `${baseUrl}/about`,
+      },
+    },
+    openGraph: {
+      title,
+      description,
+      url: canonicalUrl,
+      type: "website",
+      images: [
+        {
+          url: siteConfig.logo,
+          width: 800,
+          height: 600,
+          alt: title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [siteConfig.logo],
+    },
+  };
+}
 
 export default function AboutPage({ params: { locale } }: { params: { locale: string } }) {
   const dict = getDictionary(locale);
   const isEn = locale === "en";
+  const baseUrl = siteConfig.url.replace(/\/$/, "");
+  const canonicalUrl = isEn ? `${baseUrl}/en/about` : `${baseUrl}/about`;
+
+  const breadcrumbs = generateBreadcrumbSchema([
+    { name: isEn ? "Home" : "الرئيسية", path: isEn ? "/en" : "/" },
+    { name: isEn ? "About Us" : "من نحن", path: isEn ? "/en/about" : "/about" },
+  ]);
+
+  const webPageSchema = generateWebPageSchema({
+    title: isEn ? "About Us | Rayat Najd Contracting" : "من نحن | مؤسسة رايات نجد للمقاولات",
+    description: isEn ? dict.about.introText : dict.about.introText,
+    url: canonicalUrl,
+    locale,
+  });
 
   return (
     <div className="bg-gray-50/40 pb-16 md:pb-24">
+      <script
+        id="schema-about-webpage"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(webPageSchema),
+        }}
+      />
+      <script
+        id="schema-about-breadcrumbs"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbs),
+        }}
+      />
       {/* 1. Hero Header */}
       <section className="bg-gradient-to-b from-amber-900/10 via-white to-gray-50/40 py-12 md:py-20 border-b border-gray-100">
         <Container>

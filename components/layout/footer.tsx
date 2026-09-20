@@ -109,7 +109,7 @@ export function Footer({ locale }: { locale: string }) {
                 : "مؤسسة رايات نجد للمقاولات نقدم أفضل خدمات توريد وتركيب الشبوك الأمنية والزراعية، المظلات، والهناجر بأعلى معايير الجودة والمواصفات المعتمدة بالمملكة."}
             </p>
 
-            <div className="flex flex-wrap gap-2 text-xs text-amber-100/90">
+            <div className="flex flex-wrap gap-2 text-xs text-amber-100/90 mb-5">
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 backdrop-blur-sm border border-amber-500/20">
                 <ShieldCheck className="w-3.5 h-3.5 text-[#f5d77f]" />
                 <span>{isEn ? "Certified Quality" : "جودة معتمدة"}</span>
@@ -118,6 +118,50 @@ export function Footer({ locale }: { locale: string }) {
                 <Clock className="w-3.5 h-3.5 text-[#f5d77f]" />
                 <span>{isEn ? "On-Time Delivery" : "التزام بالمواعيد"}</span>
               </span>
+            </div>
+
+            {/* Official Social Media Links */}
+            <div className="flex items-center gap-3 pt-3 border-t border-white/10">
+              <span className="text-xs text-amber-200/80 font-medium">
+                {isEn ? "Follow us:" : "تابعنا على:"}
+              </span>
+              <div className="flex items-center gap-2.5">
+                <a
+                  href={siteConfig.social.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Instagram — شبوك رايات نجد"
+                  className="w-8 h-8 rounded-lg bg-gradient-to-tr from-[#f9ce34] via-[#ee2a7b] to-[#6228d7] text-white shadow-sm hover:shadow-[0_0_12px_rgba(238,42,123,0.5)] flex items-center justify-center transition-all hover:scale-110 focus:outline-hidden focus:ring-2 focus:ring-amber-400"
+                >
+                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
+                  </svg>
+                </a>
+                <a
+                  href={siteConfig.social.tiktok}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="TikTok — شبوك رايات نجد"
+                  className="w-8 h-8 rounded-lg bg-black text-white border border-[#25F4EE]/60 hover:border-[#FE2C55] shadow-sm hover:shadow-[0_0_12px_rgba(37,244,238,0.4)] flex items-center justify-center transition-all hover:scale-110 focus:outline-hidden focus:ring-2 focus:ring-amber-400"
+                >
+                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.298-.002.595.042.88.13V9.4a6.33 6.33 0 0 0-1-.08A6.34 6.34 0 0 0 3 15.66a6.34 6.34 0 0 0 10.82 4.49 6.27 6.27 0 0 0 1.86-4.48V8.71a8.28 8.28 0 0 0 5.2 1.81V7.08a4.87 4.87 0 0 1-1.29-.39z" />
+                  </svg>
+                </a>
+                <a
+                  href={siteConfig.social.x}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="X — شبوك رايات نجد"
+                  className="w-8 h-8 rounded-lg bg-black text-white border border-white/30 hover:border-white shadow-sm hover:shadow-[0_0_12px_rgba(255,255,255,0.3)] flex items-center justify-center transition-all hover:scale-110 focus:outline-hidden focus:ring-2 focus:ring-amber-400"
+                >
+                  <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                  </svg>
+                </a>
+              </div>
             </div>
           </div>
 
