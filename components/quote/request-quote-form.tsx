@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { servicesData } from "@/lib/data/services";
 import { siteConfig } from "@/config/site";
 import { Send, MessagesSquare, CheckCircle, PhoneCall, Sparkles } from "lucide-react";
 import { useSearchParams } from "next/navigation";
+import { pushDataLayerEvent } from "@/lib/gtm";
 
 export function RequestQuoteForm({ locale }: { locale: string }) {
   const isEn = locale === "en";
@@ -22,10 +23,25 @@ export function RequestQuoteForm({ locale }: { locale: string }) {
   });
 
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [whatsappUrl, setWhatsappUrl] = useState("");
+  const submissionHandledRef = useRef(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Prevent duplicate event triggers or double submissions
+    if (isSubmitting || submissionHandledRef.current) {
+      return;
+    }
+
+    // Validation guard
+    if (!formData.name.trim() || !formData.phone.trim() || !formData.service || !formData.city.trim()) {
+      return;
+    }
+
+    setIsSubmitting(true);
+    submissionHandledRef.current = true;
 
     // Prepare WhatsApp Message with formatted inquiry
     const selectedServiceObj = servicesData.find((s) => s.slug === formData.service);
@@ -59,13 +75,29 @@ export function RequestQuoteForm({ locale }: { locale: string }) {
     }
 
     const url = `https://wa.me/${siteConfig.contact.whatsapp}?text=${encodeURIComponent(message)}`;
+    
+    // Push DataLayer event (without any PII, strictly service and scope)
+    pushDataLayerEvent({
+      event: "rfq_whatsapp_success",
+      form_id: "request_quote",
+      service_selected: serviceName,
+      scope_selected: formData.scopeType,
+    });
+
     setWhatsappUrl(url);
     setSubmitted(true);
-    
+    setIsSubmitting(false);
+
     // Automatically open WhatsApp after brief confirmation
     setTimeout(() => {
       window.open(url, "_blank");
     }, 800);
+  };
+
+  const handleResetForm = () => {
+    submissionHandledRef.current = false;
+    setIsSubmitting(false);
+    setSubmitted(false);
   };
 
   if (submitted) {
@@ -95,7 +127,7 @@ export function RequestQuoteForm({ locale }: { locale: string }) {
             <span>{isEn ? "Open WhatsApp Directly" : "متابعة الطلب عبر واتساب"}</span>
           </a>
           <button
-            onClick={() => setSubmitted(false)}
+            onClick={handleResetForm}
             className="w-full sm:w-auto bg-gray-100 hover:bg-gray-200 text-gray-800 px-6 py-3.5 rounded-xl font-bold text-sm transition-all"
           >
             {isEn ? "Send Another Request" : "إرسال طلب آخر"}
