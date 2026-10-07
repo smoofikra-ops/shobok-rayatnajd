@@ -6,6 +6,7 @@ import { siteConfig } from "@/config/site";
 import { getDictionary } from "@/lib/dictionary";
 import { MessagesSquare, FileText, PhoneCall } from "lucide-react";
 import { getDirectWhatsAppUrl } from "@/lib/whatsapp";
+import { trackRequestQuoteClick, trackWhatsAppClick, trackPhoneClick } from "@/lib/gtm";
 
 export function CtaSection({ locale }: { locale: string }) {
   const dict = getDictionary(locale);
@@ -34,6 +35,7 @@ export function CtaSection({ locale }: { locale: string }) {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 max-w-md sm:max-w-none mx-auto">
               <Link 
                 href={`/${locale}/request-quote`} 
+                onClick={() => trackRequestQuoteClick("bottom_cta")}
                 className="w-full sm:w-auto bg-gradient-to-r from-[#B56D2A] to-[#B9A174] text-white px-7 py-3.5 rounded-xl font-bold hover:shadow-xl hover:-translate-y-0.5 active:scale-95 transition-all duration-300 flex items-center justify-center gap-2 text-sm sm:text-base shadow-lg"
               >
                 <FileText className="w-4 h-4" />
@@ -46,6 +48,7 @@ export function CtaSection({ locale }: { locale: string }) {
                   source: isEn ? "Bottom Call to Action" : "قسم الدعوة للتواصل بالصفحة الرئيسية",
                   customTopic: isEn ? "Request quote and project coordination" : "طلب عرض سعر وتنسيق هندسي لمشروع"
                 })} 
+                onClick={() => trackWhatsAppClick("bottom_cta")}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full sm:w-auto bg-gradient-to-r from-[#075E54] to-[#128C7E] text-white px-7 py-3.5 rounded-xl font-bold hover:shadow-xl hover:-translate-y-0.5 active:scale-95 transition-all duration-300 flex items-center justify-center gap-2 text-sm sm:text-base shadow-lg" 
@@ -57,6 +60,7 @@ export function CtaSection({ locale }: { locale: string }) {
 
               <a 
                 href={`tel:${siteConfig.contact.phone}`} 
+                onClick={() => trackPhoneClick("bottom_cta")}
                 className="w-full sm:w-auto bg-white/10 hover:bg-white/20 text-white border border-white/20 px-6 py-3.5 rounded-xl font-bold hover:shadow-xl hover:-translate-y-0.5 active:scale-95 transition-all duration-300 flex items-center justify-center gap-2 text-sm sm:text-base" 
                 dir="ltr"
               >

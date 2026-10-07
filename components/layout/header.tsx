@@ -10,6 +10,7 @@ import { siteConfig } from "@/config/site";
 import { getDictionary } from "@/lib/dictionary";
 import { LanguageSwitcher } from "@/components/language/language-switcher";
 import { AnnouncementBanner } from "@/components/layout/announcement-banner";
+import { trackRequestQuoteClick } from "@/lib/gtm";
 
 export function Header({ locale }: { locale: string }) {
   const pathname = usePathname();
@@ -103,6 +104,7 @@ export function Header({ locale }: { locale: string }) {
             <Link 
               href={`/${locale}/request-quote`} 
               prefetch={true}
+              onClick={() => trackRequestQuoteClick("header_desktop")}
               className="bg-gradient-to-r from-[#4A281A] via-[#B56D2A] to-[#B9A174] text-white px-5 py-2.5 rounded-md text-sm font-bold hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 flex items-center gap-2 group"
             >
               {dict.hero.quoteBtn}
@@ -146,7 +148,10 @@ export function Header({ locale }: { locale: string }) {
               <Link 
                 href={`/${locale}/request-quote`} 
                 prefetch={true}
-                onClick={() => setIsMenuOpen(false)}
+                onClick={() => {
+                  trackRequestQuoteClick("header_mobile_drawer");
+                  setIsMenuOpen(false);
+                }}
                 className="w-full bg-gradient-to-r from-[#4A281A] via-[#B56D2A] to-[#B9A174] text-white p-4 rounded-md text-center font-bold shadow-sm block"
               >
                 {dict.hero.quoteBtn}

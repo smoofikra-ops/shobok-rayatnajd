@@ -7,6 +7,7 @@ import Link from "next/link";
 import { MessagesSquare, ArrowLeft, PhoneCall } from "lucide-react";
 import { getDictionary } from "@/lib/dictionary";
 import { getDirectWhatsAppUrl } from "@/lib/whatsapp";
+import { trackRequestQuoteClick, trackWhatsAppClick, trackPhoneClick } from "@/lib/gtm";
 
 export function HeroSection({ locale }: { locale: string }) {
   const dict = getDictionary(locale);
@@ -111,6 +112,7 @@ export function HeroSection({ locale }: { locale: string }) {
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3.5 sm:gap-4 w-full max-w-md sm:max-w-none">
           <Link 
             href={`/${locale}/request-quote`} 
+            onClick={() => trackRequestQuoteClick("hero_section")}
             className="w-full sm:w-auto bg-gradient-to-r from-[#4A281A] via-[#B56D2A] to-[#B9A174] text-white px-7 py-3.5 rounded-xl font-bold hover:shadow-xl hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-300 flex items-center justify-center gap-2 shadow-lg text-sm sm:text-base"
           >
             <span>{dict.hero.quoteBtn}</span>
@@ -123,6 +125,7 @@ export function HeroSection({ locale }: { locale: string }) {
               source: isEn ? "Hero Section (Homepage)" : "قسم الهيرو - الصفحة الرئيسية",
               customTopic: isEn ? "Fencing supply and installation consultation" : "استفسار وطلب تسعير شبوك ومقاولات"
             })} 
+            onClick={() => trackWhatsAppClick("hero_section")}
             target="_blank"
             rel="noopener noreferrer"
             className="w-full sm:w-auto bg-gradient-to-r from-[#075E54] to-[#128C7E] text-white px-7 py-3.5 rounded-xl font-bold hover:shadow-xl hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-300 flex items-center justify-center gap-2 shadow-lg text-sm sm:text-base" 
@@ -134,6 +137,7 @@ export function HeroSection({ locale }: { locale: string }) {
 
           <a 
             href={`tel:${siteConfig.contact.phone}`} 
+            onClick={() => trackPhoneClick("hero_section")}
             className="w-full sm:w-auto bg-white/15 hover:bg-white/25 text-white border border-white/30 backdrop-blur-md px-6 py-3.5 rounded-xl font-bold hover:shadow-xl hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-300 flex items-center justify-center gap-2 shadow-lg text-sm sm:text-base" 
             dir="ltr"
           >

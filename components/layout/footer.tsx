@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import { Container } from "@/components/ui/container";
 import { siteConfig } from "@/config/site";
@@ -5,6 +7,7 @@ import Link from "next/link";
 import { Phone, MessagesSquare, Heart, ShieldCheck, Clock, MapPin, BookOpen, Sparkles } from "lucide-react";
 import { getDictionary } from "@/lib/dictionary";
 import { getDirectWhatsAppUrl } from "@/lib/whatsapp";
+import { trackPhoneClick, trackWhatsAppClick } from "@/lib/gtm";
 
 export function Footer({ locale }: { locale: string }) {
   const dict = getDictionary(locale);
@@ -243,7 +246,12 @@ export function Footer({ locale }: { locale: string }) {
                 <span className="w-9 h-9 rounded-xl bg-white/10 border border-white/10 flex items-center justify-center shrink-0 group-hover:border-[#B56D2A] group-hover:bg-[#B56D2A]/20 transition-all">
                   <Phone className="w-4 h-4 text-[#f5d77f]" />
                 </span>
-                <a href={`tel:${siteConfig.contact.phone}`} className="hover:text-white transition-colors font-medium" dir="ltr">
+                <a 
+                  href={`tel:${siteConfig.contact.phone}`} 
+                  onClick={() => trackPhoneClick("footer")}
+                  className="hover:text-white transition-colors font-medium" 
+                  dir="ltr"
+                >
                   {siteConfig.contact.phoneDisplay}
                 </a>
               </li>
@@ -257,6 +265,7 @@ export function Footer({ locale }: { locale: string }) {
                     source: isEn ? "Website Footer" : "فوتر الموقع الإلكتروني",
                     customTopic: isEn ? "Direct messaging & pricing request" : "محادثة مباشرة واستفسار عن الأسعار"
                   })} 
+                  onClick={() => trackWhatsAppClick("footer")}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-[#25D366] transition-colors font-medium" 
