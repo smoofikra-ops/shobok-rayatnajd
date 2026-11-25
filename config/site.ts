@@ -1,7 +1,7 @@
 export const siteConfig = {
   name: "شبوك رايات نجد",
   description: "الموقع الرسمي لمؤسسة شبوك رايات نجد. نقدم أفضل خدمات تركيب الشبوك والمقاولات بأعلى معايير الجودة.",
-  url: "https://rayatnajd.com",
+  url: "https://www.shboknajd.com",
   logo: "https://nmolabs-cdn.b-cdn.net/shobok-rayatnajd/brand/logo/shobok-rayatnajd.png",
   contact: {
     phone: "+966555987614",
