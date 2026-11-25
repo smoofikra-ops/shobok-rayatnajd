@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { siteConfig } from "@/config/site";
-import { generateFAQSchema, generateWebPageSchema } from "@/lib/schema";
+import { generateWebPageSchema } from "@/lib/schema";
 import { HeroSection } from "@/components/home/hero-section";
 import { PostHeroCanvas } from "@/components/home/post-hero-canvas";
 
@@ -57,7 +57,6 @@ export default function HomePage({ params: { locale } }: { params: { locale: str
   const isEn = locale === "en";
   const canonicalUrl = isEn ? `${baseUrl}/en` : `${baseUrl}/`;
   
-  const faqSchema = generateFAQSchema(locale);
   const webPageSchema = generateWebPageSchema({
     title: isEn ? "Rayat Najd Fencing & Contracting" : "شبوك رايات نجد للمقاولات",
     description: isEn 
@@ -76,14 +75,6 @@ export default function HomePage({ params: { locale } }: { params: { locale: str
           __html: JSON.stringify(webPageSchema),
         }}
       />
-      <script
-        id="schema-faq"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(faqSchema),
-        }}
-      />
-      
       {/* 1. Hero Section with Responsive Video (Intact & Independent) */}
       <HeroSection locale={locale} />
 

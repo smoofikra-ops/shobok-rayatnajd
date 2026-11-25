@@ -1,6 +1,5 @@
 import { siteConfig } from "@/config/site";
 import { ServiceData } from "@/lib/data/services";
-import { dictionaries, getDictionary } from "@/lib/dictionary";
 
 const BASE_URL = siteConfig.url;
 
@@ -80,11 +79,7 @@ export function generateLocalBusinessSchema() {
         "availableLanguage": ["Arabic", "English"]
       }
     ],
-    "sameAs": [
-      "https://www.instagram.com/shboknajd/",
-      "https://www.tiktok.com/@shbooknajd",
-      "https://x.com/shboknajd"
-    ],
+    "sameAs": Object.values(siteConfig.social),
     "knowsAbout": [
       "توريد وتركيب الشبوك الأمنية",
       "السياج الحديدي والأسوار المعدنية",
@@ -167,25 +162,6 @@ export function generateServiceSchema(service: ServiceData, locale: string) {
       "availability": "https://schema.org/InStock",
       "url": isEn ? `${BASE_URL}/en/request-quote` : `${BASE_URL}/request-quote`
     }
-  };
-}
-
-/**
- * FAQ Structured Data Schema for Homepage
- */
-export function generateFAQSchema(locale: string) {
-  const dict = getDictionary(locale);
-  return {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": dict.faq.items.map((item) => ({
-      "@type": "Question",
-      "name": item.q,
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": item.a
-      }
-    }))
   };
 }
 

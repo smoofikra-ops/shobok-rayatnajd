@@ -1,5 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  async redirects() {
+    return [
+      {
+        source: '/security-fencing-saudi-arabia',
+        destination: '/services/security-fencing',
+        permanent: true,
+      },
+    ];
+  },
   images: {
     remotePatterns: [
       {

@@ -27,7 +27,7 @@ export function middleware(request: NextRequest) {
     // if the user tries to access /ar explicitly, redirect them to / without prefix
     if (pathname.startsWith("/ar/") || pathname === "/ar") {
       request.nextUrl.pathname = pathname.replace(/^\/ar/, "") || "/";
-      return NextResponse.redirect(request.nextUrl);
+      return NextResponse.redirect(request.nextUrl, 308);
     }
     return;
   }
