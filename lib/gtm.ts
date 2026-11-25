@@ -1,20 +1,5 @@
 // Central Google Tag Manager & DataLayer Helper
 
-export type FormSuccessData = {
-  event: "form_success";
-  form_id: "request_quote";
-  service_selected: string;
-  [key: string]: unknown;
-};
-
-export type RfqSuccessData = {
-  event: "rfq_whatsapp_success";
-  form_id: "request_quote";
-  service_selected: string;
-  scope_selected?: string;
-  [key: string]: unknown;
-};
-
 export type WhatsAppClickData = {
   event: "whatsapp_click";
   click_location?: string;
@@ -34,8 +19,6 @@ export type RequestQuoteClickData = {
 };
 
 export type DataLayerEvent =
-  | FormSuccessData
-  | RfqSuccessData
   | WhatsAppClickData
   | PhoneClickData
   | RequestQuoteClickData
@@ -60,10 +43,11 @@ export function pushDataLayerEvent(eventData: DataLayerEvent): void {
 /**
  * Helper to track WhatsApp clicks
  */
-export function trackWhatsAppClick(location?: string): void {
+export function trackWhatsAppClick(location?: string, service?: string): void {
   pushDataLayerEvent({
     event: "whatsapp_click",
     click_location: location || "unspecified",
+    service_selected: service ?? null,
   });
 }
 

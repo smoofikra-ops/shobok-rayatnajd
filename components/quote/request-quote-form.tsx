@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { servicesData } from "@/lib/data/services";
 import { siteConfig } from "@/config/site";
 import { Send, MessagesSquare, CheckCircle2, ShieldCheck, AlertCircle } from "lucide-react";
 import { useSearchParams } from "next/navigation";
-import { pushDataLayerEvent, trackWhatsAppClick } from "@/lib/gtm";
+import { trackWhatsAppClick } from "@/lib/gtm";
 
 // Standard core services for quick selection
 const CORE_SERVICES = [
@@ -25,23 +25,22 @@ const CORE_SERVICES = [
 export function RequestQuoteForm({ locale }: { locale: string }) {
   const isEn = locale === "en";
   const searchParams = useSearchParams();
-  const preSelectedService = searchParams.get("service") || "";
+  const serviceParam = searchParams.get("service");
+  const preSelectedService = serviceParam && CORE_SERVICES.some(({ slug }) => slug === serviceParam)
+    ? serviceParam
+    : "security-fencing";
 
   // 1. Streamlined 4 Fields: Name, Phone, Service, Optional Notes
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
-    service: preSelectedService || "security-fencing",
+    service: preSelectedService,
     notes: "",
   });
 
   const [errors, setErrors] = useState<{ name?: string; phone?: string; service?: string }>({});
-  const [submitted, setSubmitted] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [whatsappUrl, setWhatsappUrl] = useState("");
-  
-  // Guard against any double firing of form_success event
-  const submissionLockedRef = useRef(false);
+  const [handoffStarted, setHandoffStarted] = useState(false);
 
   const validateForm = () => {
     const newErrors: { name?: string; phone?: string; service?: string } = {};
@@ -66,20 +65,9 @@ export function RequestQuoteForm({ locale }: { locale: string }) {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Prevent duplicate event triggers, double clicks or firing while already submitting
-    if (isSubmitting || submissionLockedRef.current) {
+    if (!validateForm()) {
       return;
     }
-
-    // 1. Strict Validation Check (Must NOT fire form_success if invalid)
-    const isValid = validateForm();
-    if (!isValid) {
-      return;
-    }
-
-    // Lock submission immediately to prevent double fires
-    setIsSubmitting(true);
-    submissionLockedRef.current = true;
 
     // Identify Service Name
     const matchedService = CORE_SERVICES.find((s) => s.slug === formData.service) ||
@@ -111,46 +99,25 @@ export function RequestQuoteForm({ locale }: { locale: string }) {
 
     const url = `https://wa.me/${siteConfig.contact.whatsapp}?text=${encodeURIComponent(message)}`;
 
-    // 2. Fire form_success event ONLY ONCE upon valid verified submission
-    pushDataLayerEvent({
-      event: "form_success",
-      form_id: "request_quote",
-      service_selected: serviceName,
-    });
-
-    // Also fire rfq_whatsapp_success for backward-compatible tag configurations
-    pushDataLayerEvent({
-      event: "rfq_whatsapp_success",
-      form_id: "request_quote",
-      service_selected: serviceName,
-    });
-
     setWhatsappUrl(url);
-    setSubmitted(true);
-    setIsSubmitting(false);
+  };
 
-    // Open WhatsApp seamlessly in a new tab
-    if (typeof window !== "undefined") {
-      setTimeout(() => {
-        window.open(url, "_blank");
-      }, 700);
+  const handleOpenWhatsApp = () => {
+    window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+    if (!handoffStarted) {
+      trackWhatsAppClick("quote_form", formData.service);
+      setHandoffStarted(true);
     }
   };
 
   const handleResetForm = () => {
-    submissionLockedRef.current = false;
-    setIsSubmitting(false);
-    setSubmitted(false);
-    setFormData({
-      name: "",
-      phone: "",
-      service: "security-fencing",
-      notes: "",
-    });
+    setWhatsappUrl("");
+    setHandoffStarted(false);
+    setFormData({ name: "", phone: "", service: preSelectedService, notes: "" });
     setErrors({});
   };
 
-  if (submitted) {
+  if (whatsappUrl) {
     return (
       <div className="bg-white p-6 sm:p-10 rounded-3xl border border-emerald-200 shadow-xl text-center space-y-6 animate-in fade-in zoom-in-95 duration-300">
         <div className="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto ring-8 ring-emerald-50">
@@ -159,33 +126,31 @@ export function RequestQuoteForm({ locale }: { locale: string }) {
         
         <div className="space-y-2">
           <h3 className="text-2xl font-extrabold text-gray-900">
-            {isEn ? "Quote Request Received Successfully!" : "تم استلام طلب عرض السعر بنجاح!"}
+            {isEn ? "Your WhatsApp message is ready" : "رسالة طلب عرض السعر جاهزة"}
           </h3>
           <p className="text-sm sm:text-base text-gray-600 max-w-lg mx-auto leading-relaxed">
             {isEn
-              ? "Your request has been organized. We are opening WhatsApp to instantly connect with our engineering team."
-              : "تم تسجيل تفاصيل طلبك بنجاح. سيتم فتح محادثة واتساب مع الفريق الهندسي المباشر لمراجعة الأسعار والمخططات."}
+              ? "Open WhatsApp and send the prepared message to our team."
+              : "افتح واتساب واضغط إرسال لإيصال طلبك إلى الفريق الهندسي."}
           </p>
         </div>
 
         <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
-          <a
-            href={whatsappUrl || `https://wa.me/${siteConfig.contact.whatsapp}`}
-            onClick={() => trackWhatsAppClick("quote_success_screen")}
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            type="button"
+            onClick={handleOpenWhatsApp}
             className="w-full sm:w-auto bg-[#25D366] text-white px-8 py-3.5 rounded-xl font-extrabold text-sm flex items-center justify-center gap-2 hover:bg-[#128C7E] transition-all shadow-md active:scale-95"
             dir="ltr"
           >
             <MessagesSquare className="w-5 h-5" />
             <span>{isEn ? "Open WhatsApp Directly" : "متابعة الطلب عبر واتساب"}</span>
-          </a>
+          </button>
           <button
             type="button"
             onClick={handleResetForm}
             className="w-full sm:w-auto bg-gray-100 hover:bg-gray-200 text-gray-800 px-6 py-3.5 rounded-xl font-bold text-sm transition-all"
           >
-            {isEn ? "Send Another Request" : "إرسال طلب آخر"}
+            {isEn ? "Prepare Another Request" : "تجهيز طلب آخر"}
           </button>
         </div>
       </div>
@@ -313,8 +278,7 @@ export function RequestQuoteForm({ locale }: { locale: string }) {
       <div className="pt-2">
         <button
           type="submit"
-          disabled={isSubmitting}
-          className="w-full relative group overflow-hidden bg-gradient-to-r from-[#4A281A] via-[#B56D2A] to-[#B9A174] text-white py-4 px-8 rounded-2xl font-extrabold text-base sm:text-lg hover:shadow-2xl hover:shadow-[#B56D2A]/30 hover:-translate-y-0.5 active:scale-[0.99] transition-all flex items-center justify-center gap-3 cursor-pointer disabled:opacity-75 disabled:cursor-not-allowed"
+          className="w-full relative group overflow-hidden bg-gradient-to-r from-[#4A281A] via-[#B56D2A] to-[#B9A174] text-white py-4 px-8 rounded-2xl font-extrabold text-base sm:text-lg hover:shadow-2xl hover:shadow-[#B56D2A]/30 hover:-translate-y-0.5 active:scale-[0.99] transition-all flex items-center justify-center gap-3 cursor-pointer"
         >
           <Send className="w-5 h-5 shrink-0 transition-transform group-hover:translate-x-1" />
           <span className="tracking-wide">
