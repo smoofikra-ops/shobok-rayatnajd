@@ -5,7 +5,7 @@ import { servicesData } from "@/lib/data/services";
 import { siteConfig } from "@/config/site";
 import { Send, MessagesSquare, CheckCircle2, ShieldCheck, AlertCircle } from "lucide-react";
 import { useSearchParams } from "next/navigation";
-import { trackWhatsAppClick } from "@/lib/gtm";
+import { pushDataLayerEvent } from "@/lib/gtm";
 
 // Standard core services for quick selection
 const CORE_SERVICES = [
@@ -105,7 +105,11 @@ export function RequestQuoteForm({ locale }: { locale: string }) {
   const handleOpenWhatsApp = () => {
     window.open(whatsappUrl, "_blank", "noopener,noreferrer");
     if (!handoffStarted) {
-      trackWhatsAppClick("quote_form", formData.service);
+      pushDataLayerEvent({
+        event: "rfq_whatsapp_click",
+        click_location: "quote_form",
+        service_selected: formData.service,
+      });
       setHandoffStarted(true);
     }
   };

@@ -43,11 +43,10 @@ export function pushDataLayerEvent(eventData: DataLayerEvent): void {
 /**
  * Helper to track WhatsApp clicks
  */
-export function trackWhatsAppClick(location?: string, service?: string): void {
+export function trackWhatsAppClick(location?: string): void {
   pushDataLayerEvent({
     event: "whatsapp_click",
     click_location: location || "unspecified",
-    service_selected: service ?? null,
   });
 }
 
