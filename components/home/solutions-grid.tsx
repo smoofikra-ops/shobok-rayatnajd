@@ -1,5 +1,6 @@
 "use client";
 
+import { getLocalizedPath } from "@/lib/localized-path";
 import Link from "next/link";
 import { Container } from "@/components/ui/container";
 import { Shield, Fence, HardHat, Warehouse, Factory, Tractor, Sparkles, Building2 } from "lucide-react";
@@ -44,7 +45,7 @@ export function SolutionsGrid({ locale }: { locale: string }) {
             return (
               <Link
                 key={idx}
-                href={`/${locale}/services/${item.slug}`}
+                href={getLocalizedPath(locale, `/services/${item.slug}`)}
                 className={`group flex flex-col items-center justify-center text-center p-3 sm:p-4 rounded-xl border border-amber-900/12 bg-white/85 sm:bg-white/90 backdrop-blur-sm sm:backdrop-blur-md shadow-sm hover:bg-white hover:border-amber-600/40 hover:shadow-lg active:scale-95 transition-all duration-200 min-h-[95px] sm:min-h-[110px] ${
                   isLastTwoOnMobile ? "col-span-1.5 sm:col-span-1" : ""
                 }`}

@@ -1,5 +1,6 @@
 "use client";
 
+import { getLocalizedPath } from "@/lib/localized-path";
 import { useEffect, useRef } from "react";
 import { Container } from "@/components/ui/container";
 import { siteConfig } from "@/config/site";
@@ -111,7 +112,7 @@ export function HeroSection({ locale }: { locale: string }) {
         {/* Action Buttons */}
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3.5 sm:gap-4 w-full max-w-md sm:max-w-none">
           <Link 
-            href={`/${locale}/request-quote`} 
+            href={getLocalizedPath(locale, "/request-quote")}
             onClick={() => trackRequestQuoteClick("hero_section")}
             className="w-full sm:w-auto bg-gradient-to-r from-[#4A281A] via-[#B56D2A] to-[#B9A174] text-white px-7 py-3.5 rounded-xl font-bold hover:shadow-xl hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-300 flex items-center justify-center gap-2 shadow-lg text-sm sm:text-base"
           >

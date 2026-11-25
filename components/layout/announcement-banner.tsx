@@ -1,5 +1,6 @@
 "use client";
 
+import { getLocalizedPath } from "@/lib/localized-path";
 import Link from "next/link";
 import { 
   Shield, 
@@ -31,7 +32,7 @@ export function AnnouncementBanner({ locale }: AnnouncementBannerProps) {
       icon: Award,
       text: isEn ? "Contractor Classification — 3rd Grade" : "مصنفون لدى وكالة تصنيف المقاولين — الدرجة الثالثة",
       badge: isEn ? "Certified" : "معتمد",
-      href: `/${locale}/about`,
+      href: getLocalizedPath(locale, "/about"),
       highlight: true
     },
     // Service 1
@@ -40,7 +41,7 @@ export function AnnouncementBanner({ locale }: AnnouncementBannerProps) {
       icon: Shield,
       text: isEn ? "High-Security Fencing & Anti-Climb Mesh" : "الشبوك الأمنية المقاومة للقص والتسلق",
       badge: isEn ? "Service" : "خدمة",
-      href: `/${locale}/services/security-fencing`,
+      href: getLocalizedPath(locale, "/services/security-fencing"),
     },
     // Strength: Experience
     {
@@ -48,7 +49,7 @@ export function AnnouncementBanner({ locale }: AnnouncementBannerProps) {
       icon: Sparkles,
       text: isEn ? "Trusted Engineering Experience Since 2010" : "خبرة هندسية وميدانية موثوقة منذ 2010",
       badge: isEn ? "Experience" : "خبرة",
-      href: `/${locale}/about`,
+      href: getLocalizedPath(locale, "/about"),
     },
     // Service 2
     {
@@ -56,7 +57,7 @@ export function AnnouncementBanner({ locale }: AnnouncementBannerProps) {
       icon: Fence,
       text: isEn ? "Architectural & Heavy-Duty Steel Fencing" : "السياج والأسوار الحديدية للمشاريع والمنشآت",
       badge: isEn ? "Service" : "خدمة",
-      href: `/${locale}/services/steel-fencing`,
+      href: getLocalizedPath(locale, "/services/steel-fencing"),
     },
     // Strength: Nationwide Coverage
     {
@@ -64,7 +65,7 @@ export function AnnouncementBanner({ locale }: AnnouncementBannerProps) {
       icon: MapPin,
       text: isEn ? "Turnkey Execution Across All Regions in Saudi Arabia" : "تغطية ميدانية وتنفيذ شامل في كافة مناطق المملكة",
       badge: isEn ? "Coverage" : "تغطية",
-      href: `/${locale}/contact`,
+      href: getLocalizedPath(locale, "/contact"),
       highlight: true
     },
     // Service 3
@@ -73,7 +74,7 @@ export function AnnouncementBanner({ locale }: AnnouncementBannerProps) {
       icon: Warehouse,
       text: isEn ? "Warehouse Hangars & Steel Structures" : "هياكل الهناجر والمستودعات والمرافق اللوجستية",
       badge: isEn ? "Service" : "خدمة",
-      href: `/${locale}/services/warehouse-hangars`,
+      href: getLocalizedPath(locale, "/services/warehouse-hangars"),
     },
     // Strength: Specs & BOQ
     {
@@ -81,7 +82,7 @@ export function AnnouncementBanner({ locale }: AnnouncementBannerProps) {
       icon: FileSpreadsheet,
       text: isEn ? "Strict Adherence to BOQ & Engineering Drawings" : "التزام دقيق بالمخططات الفنية وجداول الكميات BOQ",
       badge: isEn ? "Standards" : "معايير",
-      href: `/${locale}/request-quote`,
+      href: getLocalizedPath(locale, "/request-quote"),
     },
     // Service 4
     {
@@ -89,7 +90,7 @@ export function AnnouncementBanner({ locale }: AnnouncementBannerProps) {
       icon: HardHat,
       text: isEn ? "Commercial Car Parking & Yard Canopies" : "مظلات مواقف السيارات والساحات والمشاريع",
       badge: isEn ? "Service" : "خدمة",
-      href: `/${locale}/services/shades`,
+      href: getLocalizedPath(locale, "/services/shades"),
     },
     // Service 5
     {
@@ -97,7 +98,7 @@ export function AnnouncementBanner({ locale }: AnnouncementBannerProps) {
       icon: Factory,
       text: isEn ? "Industrial Plants & Power Station Fencing" : "شبوك المنشآت الصناعية والمحطات الحيوية",
       badge: isEn ? "Service" : "خدمة",
-      href: `/${locale}/services/industrial-fencing`,
+      href: getLocalizedPath(locale, "/services/industrial-fencing"),
     },
     // Strength: Punctuality
     {
@@ -105,7 +106,7 @@ export function AnnouncementBanner({ locale }: AnnouncementBannerProps) {
       icon: Clock,
       text: isEn ? "Fast Response & On-Time Project Delivery" : "سرعة استجابة والتزام صارم بجداول التسليم",
       badge: isEn ? "Quality" : "التزام",
-      href: `/${locale}/contact`,
+      href: getLocalizedPath(locale, "/contact"),
     },
     // Service 6
     {
@@ -113,7 +114,7 @@ export function AnnouncementBanner({ locale }: AnnouncementBannerProps) {
       icon: Tractor,
       text: isEn ? "Farms & Nature Reserve Boundary Fencing" : "شبوك المزارع والمحميات والمشاريع الزراعية",
       badge: isEn ? "Service" : "خدمة",
-      href: `/${locale}/services/farm-fencing`,
+      href: getLocalizedPath(locale, "/services/farm-fencing"),
     },
     // Service 7
     {
@@ -121,7 +122,7 @@ export function AnnouncementBanner({ locale }: AnnouncementBannerProps) {
       icon: Shield,
       text: isEn ? "Hot-Dip Galvanized Anti-Corrosion Fencing" : "الشبوك المجلفنة بالغمس الساخن المقاومة للتآكل",
       badge: isEn ? "Service" : "خدمة",
-      href: `/${locale}/services/galvanized-fencing`,
+      href: getLocalizedPath(locale, "/services/galvanized-fencing"),
     },
     // Service 8
     {
@@ -129,7 +130,7 @@ export function AnnouncementBanner({ locale }: AnnouncementBannerProps) {
       icon: CheckCircle2,
       text: isEn ? "Full Supply & Installation or Supply-Only Options" : "خيارات التوريد والتركيب الشامل أو التوريد فقط",
       badge: isEn ? "Solutions" : "حلول",
-      href: `/${locale}/services/supply-install`,
+      href: getLocalizedPath(locale, "/services/supply-install"),
     }
   ];
 

@@ -1,5 +1,6 @@
 "use client";
 
+import { getLocalizedPath } from "@/lib/localized-path";
 import Image from "next/image";
 import { Container } from "@/components/ui/container";
 import { siteConfig } from "@/config/site";
@@ -85,7 +86,7 @@ export function Footer({ locale }: { locale: string }) {
           
           {/* 1. Brand Info (4 cols on lg) */}
           <div className="lg:col-span-4">
-            <Link href={`/${locale}`} prefetch={true} className="flex items-center gap-3 mb-5 group inline-flex">
+            <Link href={getLocalizedPath(locale)} prefetch={true} className="flex items-center gap-3 mb-5 group inline-flex">
               <div className="relative w-12 h-12 rounded-xl overflow-hidden shadow-lg border border-amber-500/30 bg-white/10 p-1 flex items-center justify-center group-hover:scale-105 transition-transform shrink-0">
                 <Image
                   src={siteConfig.logo}
@@ -176,11 +177,11 @@ export function Footer({ locale }: { locale: string }) {
             </h3>
             <ul className="space-y-2.5">
               {[
-                { title: dict.nav.home, href: `/${locale}` },
-                { title: dict.nav.services, href: `/${locale}/services` },
-                { title: dict.nav.projects, href: `/${locale}/projects` },
-                { title: dict.nav.about, href: `/${locale}/about` },
-                { title: dict.nav.contact, href: `/${locale}/contact` },
+                { title: dict.nav.home, href: getLocalizedPath(locale) },
+                { title: dict.nav.services, href: getLocalizedPath(locale, "/services") },
+                { title: dict.nav.projects, href: getLocalizedPath(locale, "/projects") },
+                { title: dict.nav.about, href: getLocalizedPath(locale, "/about") },
+                { title: dict.nav.contact, href: getLocalizedPath(locale, "/contact") },
               ].map((link, idx) => (
                 <li key={idx}>
                   <Link 

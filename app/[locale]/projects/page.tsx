@@ -1,3 +1,4 @@
+import { getLocalizedPath } from "@/lib/localized-path";
 import { type Metadata } from "next";
 import { Container } from "@/components/ui/container";
 import { getDictionary } from "@/lib/dictionary";
@@ -203,7 +204,7 @@ export default function ProjectsPage({ params: { locale } }: { params: { locale:
               return (
                 <Link
                   key={service.slug}
-                  href={`/${locale}/services/${service.slug}`}
+                  href={getLocalizedPath(locale, `/services/${service.slug}`)}
                   className="group flex flex-col bg-gray-50 rounded-2xl overflow-hidden border border-gray-200 hover:border-[#B56D2A] hover:shadow-lg transition-all"
                 >
                   <div className="h-44 relative bg-gray-200">
@@ -241,7 +242,7 @@ export default function ProjectsPage({ params: { locale } }: { params: { locale:
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
               <Link
-                href={`/${locale}/request-quote`}
+                href={getLocalizedPath(locale, "/request-quote")}
                 className="w-full sm:w-auto bg-gradient-to-r from-[#B56D2A] to-[#B9A174] text-white px-8 py-3.5 rounded-xl font-bold text-sm sm:text-base flex items-center justify-center gap-2 shadow-lg"
               >
                 <FileSpreadsheet className="w-4 h-4" />

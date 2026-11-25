@@ -1,5 +1,6 @@
 "use client";
 
+import { getLocalizedPath } from "@/lib/localized-path";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -29,17 +30,15 @@ export function Header({ locale }: { locale: string }) {
   }, []);
 
   const navLinks = [
-    { title: dict.nav.home, href: `/${locale}` },
-    { title: dict.nav.services, href: `/${locale}/services` },
-    { title: dict.nav.projects, href: `/${locale}/projects` },
-    { title: dict.nav.about, href: `/${locale}/about` },
-    { title: dict.nav.contact, href: `/${locale}/contact` },
+    { title: dict.nav.home, href: getLocalizedPath(locale) },
+    { title: dict.nav.services, href: getLocalizedPath(locale, "/services") },
+    { title: dict.nav.projects, href: getLocalizedPath(locale, "/projects") },
+    { title: dict.nav.about, href: getLocalizedPath(locale, "/about") },
+    { title: dict.nav.contact, href: getLocalizedPath(locale, "/contact") },
   ];
 
-  // For active links in [locale] mode, if it's the home page
   const isActive = (href: string) => {
-    if (href === `/${locale}`) return pathname === `/${locale}` || pathname === "/";
-    return pathname.startsWith(href);
+    return pathname === href || (href !== getLocalizedPath(locale) && pathname.startsWith(`${href}/`));
   };
 
   return (
@@ -56,7 +55,7 @@ export function Header({ locale }: { locale: string }) {
           <div className="flex items-center justify-between gap-4">
           
           {/* Logo - Always on the "start" side based on direction */}
-          <Link href={`/${locale}`} prefetch={true} className="flex items-center gap-2.5 group shrink-0">
+          <Link href={getLocalizedPath(locale)} prefetch={true} className="flex items-center gap-2.5 group shrink-0">
             <div className="relative w-10 h-10 sm:w-11 sm:h-11 rounded-xl overflow-hidden shadow-sm border border-amber-900/10 bg-amber-50/40 p-0.5 flex items-center justify-center group-hover:scale-105 transition-transform shrink-0">
               <Image
                 src={siteConfig.logo}
@@ -102,7 +101,7 @@ export function Header({ locale }: { locale: string }) {
             <LanguageSwitcher currentLang={locale} />
             
             <Link 
-              href={`/${locale}/request-quote`} 
+              href={getLocalizedPath(locale, "/request-quote")}
               prefetch={true}
               onClick={() => trackRequestQuoteClick("header_desktop")}
               className="bg-gradient-to-r from-[#4A281A] via-[#B56D2A] to-[#B9A174] text-white px-5 py-2.5 rounded-md text-sm font-bold hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 flex items-center gap-2 group"
@@ -146,7 +145,7 @@ export function Header({ locale }: { locale: string }) {
             ))}
             <div className="p-4 pt-6">
               <Link 
-                href={`/${locale}/request-quote`} 
+                href={getLocalizedPath(locale, "/request-quote")}
                 prefetch={true}
                 onClick={() => {
                   trackRequestQuoteClick("header_mobile_drawer");

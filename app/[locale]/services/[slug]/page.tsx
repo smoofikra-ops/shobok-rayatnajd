@@ -1,3 +1,4 @@
+import { getLocalizedPath } from "@/lib/localized-path";
 import { Container } from "@/components/ui/container";
 import Link from "next/link";
 import { ArrowLeft, CheckCircle2, MessagesSquare, PhoneCall, FileText, Info, ShieldCheck, Layers, Workflow, ChevronRight } from "lucide-react";
@@ -132,11 +133,11 @@ export default function ServicePage({ params: { slug, locale } }: Props) {
         <Container>
           {/* Breadcrumb */}
           <nav className="flex items-center gap-2 text-xs sm:text-sm text-gray-500 mb-6 flex-wrap">
-            <Link href={`/${locale}`} prefetch={true} className="hover:text-primary transition-colors">
+            <Link href={getLocalizedPath(locale)} prefetch={true} className="hover:text-primary transition-colors">
               {dict.nav.home}
             </Link>
             <ChevronRight className={`w-3.5 h-3.5 ${isEn ? "" : "rotate-180"}`} />
-            <Link href={`/${locale}/services`} prefetch={true} className="hover:text-primary transition-colors">
+            <Link href={getLocalizedPath(locale, "/services")} prefetch={true} className="hover:text-primary transition-colors">
               {dict.nav.services}
             </Link>
             <ChevronRight className={`w-3.5 h-3.5 ${isEn ? "" : "rotate-180"}`} />
@@ -167,7 +168,7 @@ export default function ServicePage({ params: { slug, locale } }: Props) {
               {/* CTAs */}
               <div className="flex flex-col sm:flex-row gap-3 pt-2">
                 <Link
-                  href={`/${locale}/request-quote?service=${encodeURIComponent(slug)}`}
+                  href={getLocalizedPath(locale, `/request-quote?service=${encodeURIComponent(slug)}`)}
                   className="bg-gradient-to-r from-[#4A281A] via-[#B56D2A] to-[#B9A174] text-white px-7 py-3.5 rounded-xl font-bold hover:shadow-xl hover:-translate-y-0.5 active:scale-95 transition-all text-sm sm:text-base flex items-center justify-center gap-2 shadow-md"
                 >
                   <FileText className="w-4 h-4" />
@@ -296,7 +297,7 @@ export default function ServicePage({ params: { slug, locale } }: Props) {
 
                 <div className="space-y-3">
                   <Link
-                    href={`/${locale}/request-quote?service=${encodeURIComponent(slug)}`}
+                    href={getLocalizedPath(locale, `/request-quote?service=${encodeURIComponent(slug)}`)}
                     className="w-full bg-gradient-to-r from-[#B56D2A] to-[#B9A174] text-white p-3.5 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 hover:shadow-lg transition-all"
                   >
                     <FileText className="w-4 h-4" />
@@ -340,7 +341,7 @@ export default function ServicePage({ params: { slug, locale } }: Props) {
                   {relatedServices.map((rel) => (
                     <Link
                       key={rel.slug}
-                      href={`/${locale}/services/${rel.slug}`}
+                      href={getLocalizedPath(locale, `/services/${rel.slug}`)}
                       prefetch={true}
                       className="group flex items-center justify-between p-3 rounded-xl hover:bg-amber-50/50 border border-transparent hover:border-amber-200 transition-all text-xs sm:text-sm text-gray-700 font-medium active:scale-98"
                     >

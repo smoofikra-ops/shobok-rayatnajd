@@ -1,3 +1,4 @@
+import { getLocalizedPath } from "@/lib/localized-path";
 import { type Metadata } from "next";
 import { Container } from "@/components/ui/container";
 import { servicesData } from "@/lib/data/services";
@@ -160,7 +161,7 @@ export default function ServicesPage({ params: { locale } }: { params: { locale:
                   {/* Actions */}
                   <div className="flex items-center gap-3 pt-3 border-t border-gray-100 mt-auto">
                     <Link
-                      href={`/${locale}/services/${service.slug}`}
+                      href={getLocalizedPath(locale, `/services/${service.slug}`)}
                       prefetch={true}
                       className="flex-1 bg-[#4A281A] hover:bg-[#7C3E1D] text-white py-2.5 px-4 rounded-xl text-xs sm:text-sm font-bold text-center transition-colors flex items-center justify-center gap-1.5 group/btn active:scale-95"
                     >
@@ -168,7 +169,7 @@ export default function ServicesPage({ params: { locale } }: { params: { locale:
                       <ArrowLeft className={`w-3.5 h-3.5 transition-transform ${isEn ? "rotate-180 group-hover/btn:translate-x-1" : "group-hover/btn:-translate-x-1"}`} />
                     </Link>
                     <Link
-                      href={`/${locale}/request-quote?service=${encodeURIComponent(service.slug)}`}
+                      href={getLocalizedPath(locale, `/request-quote?service=${encodeURIComponent(service.slug)}`)}
                       prefetch={true}
                       className="bg-amber-50 hover:bg-amber-100 text-[#7C3E1D] border border-amber-200 py-2.5 px-4 rounded-xl text-xs sm:text-sm font-bold text-center transition-colors flex items-center justify-center gap-1 active:scale-95"
                     >

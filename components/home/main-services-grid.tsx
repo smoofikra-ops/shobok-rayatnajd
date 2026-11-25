@@ -1,5 +1,6 @@
 "use client";
 
+import { getLocalizedPath } from "@/lib/localized-path";
 import Link from "next/link";
 import { Container } from "@/components/ui/container";
 import { servicesData } from "@/lib/data/services";
@@ -44,7 +45,7 @@ export function MainServicesGrid({ locale }: { locale: string }) {
             return (
               <Link
                 key={service.slug}
-                href={`/${locale}/services/${service.slug}`}
+                href={getLocalizedPath(locale, `/services/${service.slug}`)}
                 prefetch={true}
                 className={`service-pulse-card service-card-${idx} group relative flex flex-col justify-between p-4 sm:p-5 md:p-6 rounded-2xl border border-amber-900/15 bg-white/85 sm:bg-white/90 backdrop-blur-sm sm:backdrop-blur-md shadow-sm hover:from-white hover:to-amber-50/50 hover:border-amber-700/40 hover:shadow-xl transition-all duration-300 active:scale-[0.98] min-h-[170px] sm:min-h-[210px] md:min-h-[230px]`}
               >

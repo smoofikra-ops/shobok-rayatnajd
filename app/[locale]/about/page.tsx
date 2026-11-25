@@ -1,3 +1,4 @@
+import { getLocalizedPath } from "@/lib/localized-path";
 import { type Metadata } from "next";
 import { Container } from "@/components/ui/container";
 import { getDictionary } from "@/lib/dictionary";
@@ -237,7 +238,7 @@ export default function AboutPage({ params: { locale } }: { params: { locale: st
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
               <Link
-                href={`/${locale}/request-quote`}
+                href={getLocalizedPath(locale, "/request-quote")}
                 className="w-full sm:w-auto bg-gradient-to-r from-[#B56D2A] to-[#B9A174] text-white px-7 py-3 rounded-xl font-bold text-sm"
               >
                 {dict.hero.quoteBtn}

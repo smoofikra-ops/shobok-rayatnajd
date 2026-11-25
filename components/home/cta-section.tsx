@@ -1,5 +1,6 @@
 "use client";
 
+import { getLocalizedPath } from "@/lib/localized-path";
 import Link from "next/link";
 import { Container } from "@/components/ui/container";
 import { siteConfig } from "@/config/site";
@@ -34,7 +35,7 @@ export function CtaSection({ locale }: { locale: string }) {
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 max-w-md sm:max-w-none mx-auto">
               <Link 
-                href={`/${locale}/request-quote`} 
+                href={getLocalizedPath(locale, "/request-quote")}
                 onClick={() => trackRequestQuoteClick("bottom_cta")}
                 className="w-full sm:w-auto bg-gradient-to-r from-[#B56D2A] to-[#B9A174] text-white px-7 py-3.5 rounded-xl font-bold hover:shadow-xl hover:-translate-y-0.5 active:scale-95 transition-all duration-300 flex items-center justify-center gap-2 text-sm sm:text-base shadow-lg"
               >
